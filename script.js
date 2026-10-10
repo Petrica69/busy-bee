@@ -1,24 +1,28 @@
 let cart = [];
 
-// Generare activă elemente în fundal (Albinuțe, Floricele, Miere)
+// Generare optimizată pentru fundal (Ultra-fluid pe mobil)
 function createNatureBackground() {
     const container = document.getElementById('nature-bg');
     if (!container) return;
     
+    container.innerHTML = '';
     const symbols = ['🐝', '🍯', '✨', '🌿', '🌼'];
-    const count = 24;
+    
+    // Pe mobil punem doar 6 elemente ca să nu streseze GPU-ul telefonului
+    const isMobile = window.innerWidth <= 768;
+    const count = isMobile ? 6 : 18;
 
     for (let i = 0; i < count; i++) {
         const el = document.createElement('div');
         el.className = 'floating-element';
         el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         
-        const size = Math.random() * 1.1 + 0.9;
+        const size = Math.random() * 0.9 + 0.8;
         el.style.fontSize = `${size}rem`;
-        el.style.left = `${Math.random() * 96}%`;
+        el.style.left = `${Math.random() * 92}%`;
         
-        const duration = Math.random() * 14 + 10;
-        const delay = Math.random() * 10;
+        const duration = Math.random() * 12 + (isMobile ? 12 : 10);
+        const delay = Math.random() * 8;
         el.style.animationDuration = `${duration}s`;
         el.style.animationDelay = `${delay}s`;
 
@@ -58,13 +62,13 @@ function selectVariant(button) {
     const priceEl = card.querySelector('.price-val');
 
     priceEl.style.opacity = '0';
-    priceEl.style.transform = 'translateY(-8px)';
+    priceEl.style.transform = 'translateY(-6px)';
     
     setTimeout(() => {
         priceEl.innerText = newPrice;
         priceEl.style.opacity = '1';
         priceEl.style.transform = 'translateY(0)';
-    }, 150);
+    }, 120);
 }
 
 // Albinuță zburătoare spre coș
@@ -72,8 +76,8 @@ function triggerFlyingBee(event) {
     const cartTarget = document.getElementById('cart-target-icon');
     if (!cartTarget) return;
     const rectTarget = cartTarget.getBoundingClientRect();
-    const startX = event.clientX;
-    const startY = event.clientY;
+    const startX = event.clientX || (event.touches && event.touches[0].clientX) || window.innerWidth / 2;
+    const startY = event.clientY || (event.touches && event.touches[0].clientY) || window.innerHeight / 2;
 
     const bee = document.createElement('div');
     bee.className = 'flying-bee';
@@ -87,12 +91,12 @@ function triggerFlyingBee(event) {
     const deltaY = targetY - startY;
 
     bee.style.position = 'fixed';
-    bee.style.fontSize = '2rem';
+    bee.style.fontSize = '1.8rem';
     bee.style.zIndex = '9999';
     bee.style.pointerEvents = 'none';
     bee.style.left = `${startX}px`;
     bee.style.top = `${startY}px`;
-    bee.style.transition = 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)';
+    bee.style.transition = 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
 
     setTimeout(() => {
         bee.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.2) rotate(45deg)`;
@@ -101,7 +105,7 @@ function triggerFlyingBee(event) {
 
     setTimeout(() => {
         bee.remove();
-    }, 750);
+    }, 650);
 }
 
 function addToCartFromCard(event, button, productName) {
@@ -125,7 +129,7 @@ function addToCartFromCard(event, button, productName) {
     
     setTimeout(() => {
         toggleCart(true);
-    }, 700);
+    }, 650);
 
     button.innerText = "Adăugat! ✓";
     button.style.background = "#10b981";
@@ -166,9 +170,9 @@ function updateCartUI() {
                         <strong style="font-size: 0.95rem; color: #fff;">${item.name}</strong><br>
                         <span style="color: var(--text-muted); font-size: 0.8rem;">${item.size} | ${item.price} LEI</span>
                         <div style="display: flex; align-items: center; gap: 0.8rem; margin-top: 0.5rem;">
-                            <button onclick="changeQuantity(${index}, -1)" style="background: rgba(255,255,255,0.1); border: none; color: white; width: 24px; height: 24px; border-radius: 6px; cursor: pointer; font-weight: bold;">-</button>
+                            <button onclick="changeQuantity(${index}, -1)" style="background: rgba(255,255,255,0.1); border: none; color: white; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-weight: bold;">-</button>
                             <span style="font-size: 0.9rem; font-weight: 600; color: #fff;">${item.qty}</span>
-                            <button onclick="changeQuantity(${index}, 1)" style="background: rgba(255,255,255,0.1); border: none; color: white; width: 24px; height: 24px; border-radius: 6px; cursor: pointer; font-weight: bold;">+</button>
+                            <button onclick="changeQuantity(${index}, 1)" style="background: rgba(255,255,255,0.1); border: none; color: white; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-weight: bold;">+</button>
                         </div>
                     </div>
                     <div style="text-align: right;">
