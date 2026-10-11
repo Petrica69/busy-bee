@@ -349,7 +349,7 @@
             <div class="checkout-grid">
                 <div class="checkout-form-box glass-card">
                     <h2>Finalizează Comanda</h2>
-                    <p class="checkout-sub">Completează datele de livrare mai jos.</p>
+                    <p class="checkout-sub">Completează datele de livrare și alege metoda de plată.</p>
                     
                     <form onsubmit="submitOrder(event)">
                         <div class="f-group">
@@ -364,7 +364,41 @@
                             <label for="o-address">Adresa completă de livrare</label>
                             <input type="text" id="o-address" required placeholder="Oraș, Calea/Strada, Nr, Bloc, Ap">
                         </div>
-                        <button type="submit" class="submit-order-btn">Plasează Comanda (Ramburs la Curier)</button>
+
+                        <!-- SELECTARE METODĂ DE PLATĂ -->
+                        <div class="f-group" style="margin-top: 1rem;">
+                            <label style="margin-bottom: 0.5rem; display: block;">Metodă de Plată</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <label style="display: flex; align-items: center; gap: 8px; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer;">
+                                    <input type="radio" name="payment" value="card" checked onclick="toggleCardFields(true)" style="accent-color: var(--accent-gold);">
+                                    <span style="font-size: 0.9rem; font-weight: 500;">💳 Card Online</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer;">
+                                    <input type="radio" name="payment" value="ramburs" onclick="toggleCardFields(false)" style="accent-color: var(--accent-gold);">
+                                    <span style="font-size: 0.9rem; font-weight: 500;">💵 Ramburs la Curier</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- CÂMPURI DATE CARD -->
+                        <div id="card-fields-container" style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(245,158,11,0.3); border-radius: 12px; padding: 15px; margin-top: 1rem;">
+                            <div class="f-group" style="margin-bottom: 12px;">
+                                <label for="c-number" style="font-size: 0.8rem;">Număr Card</label>
+                                <input type="text" id="c-number" placeholder="4000 1234 5678 9010" maxlength="19" autocomplete="cc-number">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="f-group" style="margin-bottom: 0;">
+                                    <label for="c-exp" style="font-size: 0.8rem;">Data Expirării</label>
+                                    <input type="text" id="c-exp" placeholder="LL/AA" maxlength="5" autocomplete="cc-exp">
+                                </div>
+                                <div class="f-group" style="margin-bottom: 0;">
+                                    <label for="c-cvv" style="font-size: 0.8rem;">CVV / CVC</label>
+                                    <input type="password" id="c-cvv" placeholder="123" maxlength="3" autocomplete="cc-csc">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-order-btn" style="margin-top: 1.5rem;">Plasează Comanda Sigură</button>
                     </form>
                 </div>
 
@@ -411,6 +445,51 @@
         </div>
     </div>
 
+    <script>
+        function toggleCardFields(show) {
+            const container = document.getElementById('card-fields-container');
+            if (container) {
+                container.style.display = show ? 'block' : 'none';
+                const inputs = container.querySelectorAll('input');
+                inputs.forEach(input => input.required = show);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const numInput = document.getElementById('c-number');
+            const expInput = document.getElementById('c-exp');
+            const cvvInput = document.getElementById('c-cvv');
+
+            if (numInput) {
+                numInput.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, '').substring(0, 16);
+                    let formatted = value.match(/.{1,4}/g)?.join(' ') || '';
+                    e.target.value = formatted;
+                });
+            }
+
+            if (expInput) {
+                expInput.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, '').substring(0, 4);
+                    if (value.length >= 2) {
+                        let month = parseInt(value.substring(0, 2), 10);
+                        if (month > 12) month = 12;
+                        if (month === 0) month = 1;
+                        let monthStr = month < 10 ? '0' + month : '' + month;
+                        expInput.value = monthStr + '/' + value.substring(2);
+                    } else {
+                        expInput.value = value;
+                    }
+                });
+            }
+
+            if (cvvInput) {
+                cvvInput.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+                });
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
