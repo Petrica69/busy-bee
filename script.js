@@ -1,6 +1,5 @@
 let cart = [];
 
-// Baza de date cu descrierile detaliate pentru fiecare produs
 const productsData = {
     poliflora: {
         title: "Miere Polifloră",
@@ -83,8 +82,17 @@ const productsData = {
 
 let currentActiveProductKey = null;
 
-// Deschide detaliile produsului și salvează starea în istoric (pentru săgeata din Safari)
-function openProductDetail(productKey, pushHistory = true) {
+// Inițializăm starea paginii la încărcare
+window.addEventListener('DOMContentLoaded', () => {
+    createNatureBackground();
+    // Setăm starea de bază în istoric
+    if (!window.history.state) {
+        window.history.replaceState({ view: 'store' }, '', window.location.href);
+    }
+});
+
+// Deschide detaliile produsului
+function openProductDetail(productKey, push = true) {
     const p = productsData[productKey];
     if (!p) return;
     currentActiveProductKey = productKey;
@@ -107,57 +115,64 @@ function openProductDetail(productKey, pushHistory = true) {
     document.getElementById('product-detail-view').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    if (pushHistory) {
-        history.pushState({ view: 'detail', product: productKey }, "", `#${productKey}`);
+    if (push) {
+        window.history.pushState({ view: 'detail', product: productKey }, '', `#${productKey}`);
     }
 }
 
-// Afișează magazinul principal
-function showStoreView(pushHistory = true) {
+// Afișează magazinul
+function showStoreView(push = true) {
     document.getElementById('checkout-view').style.display = 'none';
     document.getElementById('product-detail-view').style.display = 'none';
     document.getElementById('store-view').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    if (pushHistory && window.location.hash) {
-        history.pushState({ view: 'store' }, "", window.location.pathname);
+    if (push && window.location.hash) {
+        window.history.pushState({ view: 'store' }, '', window.location.pathname);
     }
 }
 
-// Ascultă butonul de "Înapoi / Înainte" din browser (Safari / Chrome)
+// Gestionare săgeți Back / Forward din browser
 window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.view === 'detail') {
-        openProductDetail(event.state.product, false);
+    if (event.state) {
+        if (event.state.view === 'detail') {
+            openProductDetail(event.state.product, false);
+        } else if (event.state.view === 'checkout') {
+            showCheckoutView(false);
+        } else {
+            showStoreView(false);
+        }
     } else {
         showStoreView(false);
     }
 });
 
-// Detectare SWIPE de la stânga la dreapta pentru întoarcere rapidă
+// Detectare SWIPE de la stânga la dreapta pentru întoarcere rapidă pe mobil
 let touchStartX = 0;
 let touchStartY = 0;
 
 document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
 }, false);
 
 document.addEventListener('touchend', e => {
-    let touchEndX = e.changedTouches[0].screenX;
-    let touchEndY = e.changedTouches[0].screenY;
-    handleSwipeGesture(touchStartX, touchEndX, touchStartY, touchEndY);
+    let touchEndX = e.changedTouches[0].clientX;
+    let touchEndY = e.changedTouches[0].clientY;
+    handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY);
 }, false);
 
-function handleSwipeGesture(startX, endX, startY, endY) {
+function handleSwipe(startX, endX, startY, endY) {
     const diffX = endX - startX;
     const diffY = Math.abs(endY - startY);
 
-    if (diffX > 90 && diffY < 60) {
-        const detailView = document.getElementById('product-detail-view');
-        const checkoutView = document.getElementById('checkout-view');
+    // Glisare spre dreapta de la marginea ecranului sau pe suprafața paginii de detalii/checkout
+    if (diffX > 80 && diffY < 50) {
+        const detailVisible = document.getElementById('product-detail-view').style.display === 'block';
+        const checkoutVisible = document.getElementById('checkout-view').style.display === 'block';
 
-        if (detailView.style.display === 'block' || checkoutView.style.display === 'block') {
-            showStoreView(true);
+        if (detailVisible || checkoutVisible) {
+            window.history.back();
         }
     }
 }
@@ -234,11 +249,6 @@ function createNatureBackground() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    createNatureBackground();
-});
-
-// Faq Toggle
 function toggleFaq(element) {
     const isActive = element.classList.contains('active');
     document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
@@ -247,7 +257,6 @@ function toggleFaq(element) {
     }
 }
 
-// Selector Variante (Efect Miere Lichidă din carduri)
 function selectVariant(button) {
     const picker = button.closest('.variant-picker');
     picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
@@ -369,17 +378,24 @@ function toggleCart(forceOpen = false) {
     }
 }
 
+function showCheckoutView(push = true) {
+    document.getElementById('store-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'none';
+    document.getElementById('checkout-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (push) {
+        window.history.pushState({ view: 'checkout' }, '', '#checkout');
+    }
+}
+
 function goToCheckoutPage() {
     if (cart.length === 0) {
         alert("Coșul tău este gol! Adaugă cel puțin un produs.");
         return;
     }
     toggleCart();
-    document.getElementById('store-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'none';
-    document.getElementById('checkout-view').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    history.pushState({ view: 'checkout' }, "", "#checkout");
+    showCheckoutView(true);
+    updateCheckoutSummary();
 }
 
 function updateCheckoutSummary() {
@@ -414,5 +430,5 @@ function submitOrder(e) {
     alert(`Felicitări, ${name}! Comanda ta a fost înregistrată cu succes. Te sunăm în curând pentru confirmare.`);
     cart = [];
     updateCartUI();
-    showStoreView();
+    showStoreView(true);
 }
