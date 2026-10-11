@@ -55,10 +55,39 @@ header {
 .floating-jar { width: 100%; height: 420px; border-radius: 32px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
 .floating-jar img { width: 100%; height: 100%; object-fit: cover; }
 
-/* MARQUEE */
-.marquee-container { background: linear-gradient(90deg, #f59e0b, #d97706); color: #111; padding: 0.9rem 0; font-weight: 800; font-size: 0.92rem; white-space: nowrap; overflow: hidden; position: relative; z-index: 2; }
-.marquee-track { display: inline-block; white-space: nowrap; animation: marqueeScroll 25s linear infinite; }
-@keyframes marqueeScroll { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+/* MARQUEE ROBUST, FLUID ȘI MAI STRÂNS */
+.marquee-container {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    color: #111;
+    padding: 0.9rem 0;
+    font-weight: 800;
+    font-size: 0.92rem;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+.marquee-track {
+    display: flex;
+    width: 200%;
+    animation: marqueeScroll 22s linear infinite;
+    will-change: transform;
+}
+.marquee-group {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    flex-shrink: 0;
+}
+.marquee-group span {
+    white-space: nowrap;
+    padding: 0 0.6rem; /* Spațiere micșorată pentru a fi mai compact */
+}
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
 
 /* PRODUSE */
 .products-section { max-width: 1200px; margin: 0 auto; padding: 7rem 2rem 4rem; position: relative; z-index: 2; }
