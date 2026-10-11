@@ -1,434 +1,338 @@
-let cart = [];
-
 const productsData = {
-    poliflora: {
-        title: "Miere Polifloră",
-        price: 35,
-        img: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=800&q=80",
-        desc: "Obținută din nectarul a zeci de specii de flori sălbatice de pe dealurile însorite ale României. Este un cocktail natural de vitamine și minerale, recunoscut pentru efectul său tonic general și sprijinul adus sistemului imunitar în sezonul rece.",
+    'poliflora': {
+        title: 'Miere Polifloră',
+        img: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80',
+        desc: '100% naturală, culeasă din flora bogată a dealurilor însorite. Un amestec complex de nectare cu proprietăți energizante și tonice pentru organism.',
         variants: [
-            { size: "400g", price: 35 },
-            { size: "800g", price: 60 },
-            { size: "1kg", price: 75 }
+            { size: '400g', price: 35 },
+            { size: '800g', price: 60 },
+            { size: '1kg', price: 75 }
         ]
     },
-    salcam: {
-        title: "Miere de Salcâm",
-        price: 45,
-        img: "https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=800&q=80",
-        desc: "Considerată regina mierurilor datorită limpezimii sale cristaline și a faptului că rămâne în stare lichidă o perioadă foarte îndelungată. Are un gust fin, delicat, fiind ideală pentru îndulcirea ceaiurilor fără să le schimbe aroma naturală.",
+    'salcam': {
+        title: 'Miere de Salcâm',
+        img: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=600&q=80',
+        desc: 'Fină, translucidă și delicioasă. Un gust diafan și delicat, recunoscut prin faptul că rămâne în stare lichidă o perioadă foarte îndelungată.',
         variants: [
-            { size: "400g", price: 45 },
-            { size: "800g", price: 80 },
-            { size: "1kg", price: 95 }
+            { size: '400g', price: 45 },
+            { size: '800g', price: 80 },
+            { size: '1kg', price: 95 }
         ]
     },
-    tei: {
-        title: "Miere de Tei",
-        price: 40,
-        img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=800&q=80",
-        desc: "Cu o aromă puternică, inconfundabilă și o culoare ambra-deschisă, mierea de tei este renumită pentru proprietățile ei calmante. Este alegerea perfectă pentru o seară liniștită, consumată într-un ceai cald înainte de culcare.",
+    'tei': {
+        title: 'Miere de Tei',
+        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80',
+        desc: 'Aromă intensă și relaxantă. Perfectă pentru ceai și seri liniștite, având un efect calmant dovedit și un parfum inconfundabil.',
         variants: [
-            { size: "400g", price: 40 },
-            { size: "800g", price: 70 },
-            { size: "1kg", price: 85 }
+            { size: '400g', price: 40 },
+            { size: '800g', price: 70 },
+            { size: '1kg', price: 85 }
         ]
     },
-    rapita: {
-        title: "Miere de Rapiță",
-        price: 35,
-        img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
-        desc: "O miere unică prin textura ei cremoasă, de un alb-gălbui deosebit. Se topește instant pe limbă și conține cantități ridicate de coenzima Q10, fiind extrem de apreciată pentru menținerea sănătății sistemului cardiovascular.",
+    'rapita': {
+        title: 'Miere de Rapiță',
+        img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80',
+        desc: 'Cremoasă, fină și bogată în nutrienți. Se topește instant pe limbă și este extrem de apreciată pentru conținutul ridicat de glucoză.',
         variants: [
-            { size: "400g", price: 35 },
-            { size: "800g", price: 60 },
-            { size: "1kg", price: 75 }
+            { size: '400g', price: 35 },
+            { size: '800g', price: 60 },
+            { size: '1kg', price: 75 }
         ]
     },
-    floare: {
-        title: "Miere de Floarea-Soarelui",
-        price: 30,
-        img: "https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80",
-        desc: "O explozie de energie curată, cu o culoare galben-aurie intensă și o aromă inconfundabilă de vară. Cristalizează rapid datorită conținutului natural bogat în glucoză, fiind preferată de sportivi și persoane cu activitate fizică intensă.",
+    'floare': {
+        title: 'Miere de Floarea-Soarelui',
+        img: 'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=600&q=80',
+        desc: 'Aromă puternică de vară și culoare aurie intensă, extrem de energizantă și bogată în enzime benefice.',
         variants: [
-            { size: "400g", price: 30 },
-            { size: "800g", price: 55 },
-            { size: "1kg", price: 65 }
+            { size: '400g', price: 30 },
+            { size: '800g', price: 55 },
+            { size: '1kg', price: 65 }
         ]
     },
-    pastura: {
-        title: "Păstură Naturală",
-        price: 60,
-        img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
-        desc: "Cunoscută pe bună dreptate drept „pâinea albinelor”, păstura este polenul fermentat natural în faguri. Este un superaliment excepțional, extrem de bogat în aminoacizi esențiali și seleniu, ideal pentru detoxifierea ficatului și imunitate.",
+    'capaceala': {
+        title: 'Capăceală de Miere',
+        img: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80',
+        desc: 'Căpăceala fagurilor, un elixir natural cu miere, ceară și propolis, excelentă pentru sănătatea cavității bucale și digestie.',
         variants: [
-            { size: "200g", price: 60 },
-            { size: "400g", price: 110 },
-            { size: "800g", price: 200 }
+            { size: '300g', price: 40 },
+            { size: '600g', price: 75 },
+            { size: '1kg', price: 110 }
         ]
     },
-    propolis: {
-        title: "Tinctură de Propolis",
-        price: 25,
-        img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80",
-        desc: "Extract pur de propolis în soluție hidroalcoolică, cel mai puternic antibiotic natural produs de albine. Ajută la apărarea organismului împotriva infecțiilor, vindecarea rapidă a rănilor și menținerea sănătății căilor respiratorii.",
+    'rame': {
+        title: 'Rame cu Miere (Fagure)',
+        img: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=600&q=80',
+        desc: 'Fagure proaspăt în ramă completă, direct din stup, exact așa cum l-au zidit albinele. Puritate maximă.',
         variants: [
-            { size: "30ml", price: 25 },
-            { size: "50ml", price: 40 },
-            { size: "100ml", price: 70 }
+            { size: '1 ramă', price: 90 },
+            { size: '2 rame', price: 170 },
+            { size: '3 rame', price: 240 }
+        ]
+    },
+    'pastura': {
+        title: 'Păstură Naturală',
+        img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80',
+        desc: 'Cunoscută drept „pâinea albinelor”, un superaliment cu efecte curative excepționale și conținut ridicat de aminoacizi.',
+        variants: [
+            { size: '200g', price: 60 },
+            { size: '400g', price: 110 },
+            { size: '800g', price: 200 }
+        ]
+    },
+    'tinctura': {
+        title: 'Tinctură de Propolis',
+        img: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80',
+        desc: 'Extract pur de propolis în alcool etilic, un antibiotic natural puternic pentru imunitate și vindecarea țesuturilor.',
+        variants: [
+            { size: '30ml', price: 25 },
+            { size: '50ml', price: 40 },
+            { size: '100ml', price: 70 }
         ]
     }
 };
 
-let currentActiveProductKey = null;
+let cart = [];
+let currentDetailProduct = null;
+let currentDetailVariantIndex = 0;
 
-// Inițializăm starea paginii la încărcare
 window.addEventListener('DOMContentLoaded', () => {
-    createNatureBackground();
-    // Setăm starea de bază în istoric
-    if (!window.history.state) {
-        window.history.replaceState({ view: 'store' }, '', window.location.href);
-    }
-});
-
-// Deschide detaliile produsului
-function openProductDetail(productKey, push = true) {
-    const p = productsData[productKey];
-    if (!p) return;
-    currentActiveProductKey = productKey;
-
-    document.getElementById('detail-img').src = p.img;
-    document.getElementById('detail-title').innerText = p.title;
-    document.getElementById('detail-price').innerText = p.variants[0].price;
-    document.getElementById('detail-desc').innerText = p.desc;
-
-    const picker = document.getElementById('detail-variant-picker');
-    picker.innerHTML = `<div class="ios-slider"></div>` + p.variants.map((v, idx) => `
-        <button class="v-btn ${idx === 0 ? 'active' : ''}" data-size="${v.size}" data-price="${v.price}" onclick="selectDetailVariant(this)">${v.size}</button>
-    `).join('');
-
-    const slider = picker.querySelector('.ios-slider');
-    if(slider) slider.style.transform = 'translateX(0%)';
-
-    document.getElementById('store-view').style.display = 'none';
-    document.getElementById('checkout-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    if (push) {
-        window.history.pushState({ view: 'detail', product: productKey }, '', `#${productKey}`);
-    }
-}
-
-// Afișează magazinul
-function showStoreView(push = true) {
-    document.getElementById('checkout-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'none';
-    document.getElementById('store-view').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    if (push && window.location.hash) {
-        window.history.pushState({ view: 'store' }, '', window.location.pathname);
-    }
-}
-
-// Gestionare săgeți Back / Forward din browser
-window.addEventListener('popstate', (event) => {
-    if (event.state) {
-        if (event.state.view === 'detail') {
-            openProductDetail(event.state.product, false);
-        } else if (event.state.view === 'checkout') {
-            showCheckoutView(false);
-        } else {
-            showStoreView(false);
-        }
-    } else {
-        showStoreView(false);
-    }
-});
-
-// Detectare SWIPE de la stânga la dreapta pentru întoarcere rapidă pe mobil
-let touchStartX = 0;
-let touchStartY = 0;
-
-document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].clientX;
-    touchStartY = e.changedTouches[0].clientY;
-}, false);
-
-document.addEventListener('touchend', e => {
-    let touchEndX = e.changedTouches[0].clientX;
-    let touchEndY = e.changedTouches[0].clientY;
-    handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY);
-}, false);
-
-function handleSwipe(startX, endX, startY, endY) {
-    const diffX = endX - startX;
-    const diffY = Math.abs(endY - startY);
-
-    // Glisare spre dreapta de la marginea ecranului sau pe suprafața paginii de detalii/checkout
-    if (diffX > 80 && diffY < 50) {
-        const detailVisible = document.getElementById('product-detail-view').style.display === 'block';
-        const checkoutVisible = document.getElementById('checkout-view').style.display === 'block';
-
-        if (detailVisible || checkoutVisible) {
-            window.history.back();
+    const bg = document.getElementById('nature-bg');
+    if (bg) {
+        const emojis = ['🐝', '🍯', '🌼', '✨'];
+        for (let i = 0; i < 18; i++) {
+            const span = document.createElement('span');
+            span.className = 'floating-element';
+            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+            span.style.animationDuration = (Math.random() * 12 + 10) + 's';
+            span.style.animationDelay = (Math.random() * 8) + 's';
+            bg.appendChild(span);
         }
     }
+    toggleCardInputs();
+    setupCardValidation();
+});
+
+function setupCardValidation() {
+    const cardNumberInput = document.getElementById('c-number');
+    const cardExpInput = document.getElementById('c-exp');
+    const cardCvcInput = document.getElementById('c-cvc');
+
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+            let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+            e.target.value = formatted;
+        });
+    }
+
+    if (cardExpInput) {
+        cardExpInput.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (val.length >= 2) {
+                let month = parseInt(val.substring(0, 2), 10);
+                if (month > 12) month = 12;
+                if (month < 1 && val.length === 2) month = 1;
+                let formattedMonth = month < 10 && val.length === 2 ? '0' + month : month.toString();
+                val = formattedMonth + val.substring(2);
+                e.target.value = val.substring(0, 2) + '/' + val.substring(2);
+            } else {
+                e.target.value = val;
+            }
+        });
+    }
+
+    if (cardCvcInput) {
+        cardCvcInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+        });
+    }
 }
 
-function selectDetailVariant(button) {
-    const picker = button.closest('.variant-picker');
-    picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
+function selectVariant(btn) {
+    const picker = btn.parentElement;
+    const buttons = picker.querySelectorAll('.v-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-    const buttons = Array.from(picker.querySelectorAll('.v-btn'));
-    const index = buttons.indexOf(button);
+    const index = Array.from(buttons).indexOf(btn);
     const slider = picker.querySelector('.ios-slider');
     if (slider) {
         slider.style.transform = `translateX(${index * 100}%)`;
     }
 
-    const newPrice = button.getAttribute('data-price');
-    document.getElementById('detail-price').innerText = newPrice;
+    const price = btn.getAttribute('data-price');
+    const card = picker.closest('.product-card');
+    if (card) {
+        const priceVal = card.querySelector('.price-val');
+        if (priceVal) priceVal.innerText = price;
+    }
+}
+
+function showStoreView() {
+    document.getElementById('store-view').style.display = 'block';
+    document.getElementById('product-detail-view').style.display = 'none';
+    document.getElementById('checkout-view').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openProductDetail(productId) {
+    currentDetailProduct = productsData[productId];
+    if (!currentDetailProduct) return;
+
+    document.getElementById('detail-img').src = currentDetailProduct.img;
+    document.getElementById('detail-title').innerText = currentDetailProduct.title;
+    document.getElementById('detail-desc').innerText = currentDetailProduct.desc;
+    document.getElementById('detail-price').innerText = currentDetailProduct.variants[0].price;
+
+    currentDetailVariantIndex = 0;
+    const picker = document.getElementById('detail-variant-picker');
+    picker.innerHTML = '<div class="ios-slider"></div>';
+
+    currentDetailProduct.variants.forEach((v, index) => {
+        const b = document.createElement('button');
+        b.className = `v-btn ${index === 0 ? 'active' : ''}`;
+        b.innerText = v.size;
+        b.onclick = () => {
+            currentDetailVariantIndex = index;
+            document.getElementById('detail-price').innerText = v.price;
+            picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
+            b.classList.add('active');
+            picker.querySelector('.ios-slider').style.transform = `translateX(${index * 100}%)`;
+        };
+        picker.appendChild(b);
+    });
+
+    document.getElementById('store-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'block';
+    document.getElementById('checkout-view').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToCheckoutPage() {
+    if (cart.length === 0) {
+        alert('Coșul tău este gol!');
+        return;
+    }
+    toggleCart();
+    document.getElementById('store-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'none';
+    document.getElementById('checkout-view').style.display = 'block';
+    renderCheckoutSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCart() {
+    document.getElementById('cart-drawer').classList.toggle('open');
+    document.getElementById('cart-overlay').classList.toggle('open');
+}
+
+function addToCartFromCard(event, btn, productName) {
+    event.stopPropagation();
+    const card = btn.closest('.product-card');
+    const activeBtn = card.querySelector('.v-btn.active');
+    const size = activeBtn.getAttribute('data-size');
+    const price = parseInt(activeBtn.getAttribute('data-price'));
+
+    const existing = cart.find(item => item.name === productName && item.size === size);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ name: productName, size: size, price: price, qty: 1 });
+    }
+    updateCartUI();
+    toggleCart();
 }
 
 function addCurrentDetailToCart() {
-    const p = productsData[currentActiveProductKey];
-    const picker = document.getElementById('detail-variant-picker');
-    const activeVar = picker.querySelector('.v-btn.active');
-    const size = activeVar.getAttribute('data-size');
-    const price = parseInt(activeVar.getAttribute('data-price'));
-
-    const itemKey = `${p.title}-${size}`;
-    const existing = cart.find(item => item.key === itemKey);
-
+    if (!currentDetailProduct) return;
+    const variant = currentDetailProduct.variants[currentDetailVariantIndex];
+    const existing = cart.find(item => item.name === currentDetailProduct.title && item.size === variant.size);
     if (existing) {
-        existing.qty += 1;
+        existing.qty++;
     } else {
-        cart.push({ key: itemKey, name: p.title, size, price, qty: 1 });
-    }
-
-    updateCartUI();
-    toggleCart(true);
-
-    const btn = document.getElementById('detail-add-btn');
-    btn.innerText = "Adăugat în Coș! ✓";
-    btn.style.background = "#10b981";
-    setTimeout(() => {
-        btn.innerText = "Adaugă în Coș";
-        btn.style.background = "";
-    }, 1200);
-}
-
-// Generare fundal optimizat
-function createNatureBackground() {
-    const container = document.getElementById('nature-bg');
-    if (!container) return;
-    
-    container.innerHTML = '';
-    const symbols = ['🐝', '🍯', '✨', '🌿', '🌼'];
-    const isMobile = window.innerWidth <= 768;
-    const count = isMobile ? 6 : 18;
-
-    for (let i = 0; i < count; i++) {
-        const el = document.createElement('div');
-        el.className = 'floating-element';
-        el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        
-        const size = Math.random() * 0.9 + 0.8;
-        el.style.fontSize = `${size}rem`;
-        el.style.left = `${Math.random() * 92}%`;
-        
-        const duration = Math.random() * 12 + (isMobile ? 12 : 10);
-        const delay = Math.random() * 8;
-        el.style.animationDuration = `${duration}s`;
-        el.style.animationDelay = `${delay}s`;
-
-        container.appendChild(el);
-    }
-}
-
-function toggleFaq(element) {
-    const isActive = element.classList.contains('active');
-    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-    if (!isActive) {
-        element.classList.add('active');
-    }
-}
-
-function selectVariant(button) {
-    const picker = button.closest('.variant-picker');
-    picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    const buttons = Array.from(picker.querySelectorAll('.v-btn'));
-    const index = buttons.indexOf(button);
-    const slider = picker.querySelector('.ios-slider');
-    
-    if (slider) {
-        slider.style.transform = `translateX(${index * 100}%)`;
-    }
-
-    const newPrice = button.getAttribute('data-price');
-    const card = button.closest('.product-card');
-    const priceEl = card.querySelector('.price-val');
-
-    priceEl.style.opacity = '0';
-    priceEl.style.transform = 'translateY(-6px)';
-    
-    setTimeout(() => {
-        priceEl.innerText = newPrice;
-        priceEl.style.opacity = '1';
-        priceEl.style.transform = 'translateY(0)';
-    }, 120);
-}
-
-function addToCartFromCard(event, button, productName) {
-    const card = button.closest('.product-card');
-    const activeVar = card.querySelector('.v-btn.active');
-    const size = activeVar.getAttribute('data-size');
-    const price = parseInt(activeVar.getAttribute('data-price'));
-
-    const itemKey = `${productName}-${size}`;
-    const existing = cart.find(item => item.key === itemKey);
-
-    if (existing) {
-        existing.qty += 1;
-    } else {
-        cart.push({ key: itemKey, name: productName, size, price, qty: 1 });
-    }
-
-    updateCartUI();
-    toggleCart(true);
-
-    button.innerText = "Adăugat! ✓";
-    button.style.background = "#10b981";
-    button.style.color = "white";
-    setTimeout(() => {
-        button.innerText = "Adaugă";
-        button.style.background = "";
-        button.style.color = "";
-    }, 1200);
-}
-
-function changeQuantity(index, delta) {
-    cart[index].qty += delta;
-    if (cart[index].qty <= 0) {
-        cart.splice(index, 1);
+        cart.push({ name: currentDetailProduct.title, size: variant.size, price: variant.price, qty: 1 });
     }
     updateCartUI();
-    updateCheckoutSummary();
+    toggleCart();
 }
 
 function updateCartUI() {
-    const container = document.getElementById('cart-items');
-    const countBadge = document.getElementById('cart-count');
+    const countSpan = document.getElementById('cart-count');
+    const itemsContainer = document.getElementById('cart-items');
     const totalVal = document.getElementById('cart-total-val');
 
-    let totalItems = 0;
+    let totalCount = 0;
     let totalPrice = 0;
+    itemsContainer.innerHTML = '';
 
-    if (cart.length === 0) {
-        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Coșul tău este gol momentan.</p>';
-    } else {
-        container.innerHTML = cart.map((item, index) => {
-            totalItems += item.qty;
-            totalPrice += item.price * item.qty;
-            return `
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border-color);">
-                    <div>
-                        <strong style="font-size: 0.95rem; color: #fff;">${item.name}</strong><br>
-                        <span style="color: var(--text-muted); font-size: 0.8rem;">${item.size} | ${item.price} LEI</span>
-                        <div style="display: flex; align-items: center; gap: 0.8rem; margin-top: 0.5rem;">
-                            <button onclick="changeQuantity(${index}, -1)" style="background: rgba(255,255,255,0.1); border: none; color: white; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-weight: bold;">-</button>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: #fff;">${item.qty}</span>
-                            <button onclick="changeQuantity(${index}, 1)" style="background: rgba(255,255,255,0.1); border: none; color: white; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-weight: bold;">+</button>
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <strong style="color: var(--accent-gold); display: block; margin-bottom: 0.5rem; font-size: 1.05rem;">${item.price * item.qty} LEI</strong>
-                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:0.75rem;">Șterge</button>
-                    </div>
+    cart.forEach((item, index) => {
+        totalCount += item.qty;
+        totalPrice += item.price * item.qty;
+
+        itemsContainer.innerHTML += `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem;">
+                <div>
+                    <div style="font-weight: 700; font-size: 0.95rem;">${item.name}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">${item.size} | ${item.price} LEI x ${item.qty}</div>
                 </div>
-            `;
-        }).join('');
-    }
+                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1rem;">Șterge</button>
+            </div>
+        `;
+    });
 
-    countBadge.innerText = totalItems;
-    totalVal.innerText = `${totalPrice} LEI`;
+    countSpan.innerText = totalCount;
+    totalVal.innerText = totalPrice + ' LEI';
 }
 
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartUI();
-    updateCheckoutSummary();
 }
 
-function toggleCart(forceOpen = false) {
-    const drawer = document.getElementById('cart-drawer');
-    const overlay = document.getElementById('cart-overlay');
-    if (!drawer || !overlay) return;
-    if (forceOpen) {
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-    } else {
-        drawer.classList.toggle('open');
-        overlay.classList.toggle('open');
-    }
-}
-
-function showCheckoutView(push = true) {
-    document.getElementById('store-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'none';
-    document.getElementById('checkout-view').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (push) {
-        window.history.pushState({ view: 'checkout' }, '', '#checkout');
-    }
-}
-
-function goToCheckoutPage() {
-    if (cart.length === 0) {
-        alert("Coșul tău este gol! Adaugă cel puțin un produs.");
-        return;
-    }
-    toggleCart();
-    showCheckoutView(true);
-    updateCheckoutSummary();
-}
-
-function updateCheckoutSummary() {
-    const listContainer = document.getElementById('checkout-items-list');
-    const subtotalEl = document.getElementById('co-subtotal');
-    const totalEl = document.getElementById('co-total');
-    if (!listContainer) return;
-
+function renderCheckoutSummary() {
+    const list = document.getElementById('checkout-items-list');
+    list.innerHTML = '';
     let subtotal = 0;
-    listContainer.innerHTML = cart.map(item => {
+
+    cart.forEach(item => {
         subtotal += item.price * item.qty;
-        return `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 0.8rem;">
-                <div>
-                    <span style="color: #fff; font-weight: 600;">${item.name}</span><br>
-                    <span style="color: var(--text-muted); font-size: 0.8rem;">${item.size} x ${item.qty}</span>
-                </div>
-                <div style="color: var(--accent-gold); font-weight: 700;">
-                    ${item.price * item.qty} LEI
-                </div>
+        list.innerHTML += `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.9rem;">
+                <span>${item.name} (${item.size}) x ${item.qty}</span>
+                <span style="font-weight: 700; color: var(--accent-gold);">${item.price * item.qty} LEI</span>
             </div>
         `;
-    }).join('');
+    });
 
-    subtotalEl.innerText = `${subtotal} LEI`;
-    totalEl.innerText = `${subtotal + 20} LEI`;
+    document.getElementById('co-subtotal').innerText = subtotal + ' LEI';
+    document.getElementById('co-total').innerText = (subtotal + 20) + ' LEI';
 }
 
-function submitOrder(e) {
-    e.preventDefault();
+function toggleCardInputs() {
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    const cardSection = document.getElementById('card-details-section');
+    if (paymentMethod === 'card') {
+        cardSection.style.display = 'block';
+    } else {
+        cardSection.style.display = 'none';
+    }
+}
+
+function submitOrder(event) {
+    event.preventDefault();
     const name = document.getElementById('o-name').value;
-    alert(`Felicitări, ${name}! Comanda ta a fost înregistrată cu succes. Te sunăm în curând pentru confirmare.`);
+    const phone = document.getElementById('o-phone').value;
+    const address = document.getElementById('o-address').value;
+    const payment = document.querySelector('input[name="payment"]:checked').value;
+
+    alert(`Mulțumim pentru comandă, ${name}! Comanda ta a fost înregistrată cu succes și va fi procesată prin plata ${payment === 'card' ? 'cu Cardul Online' : 'Ramburs'}. Te vom contacta în curând!`);
     cart = [];
     updateCartUI();
-    showStoreView(true);
+    showStoreView();
+}
+
+function toggleFaq(item) {
+    item.classList.toggle('active');
 }
