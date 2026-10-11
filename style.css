@@ -205,7 +205,6 @@ header {
 .cart-total-row { display: flex; justify-content: space-between; font-size: 1.35rem; font-weight: 800; margin-bottom: 1.6rem; color: var(--accent-gold); }
 .checkout-btn { width: 100%; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; padding: 1.15rem; border-radius: 22px; font-weight: 800; cursor: pointer; }
 
-/* Controale Cantitate Coș (+/-) */
 .cart-qty-btn {
     background: rgba(255, 255, 255, 0.1);
     color: white;
