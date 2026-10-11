@@ -17,38 +17,71 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Structură vederi cu tranziții fluide */
+/* Fundal animat fluid separat de procesul grafic de swipe */
+.nature-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.floating-element {
+    position: absolute;
+    bottom: -60px;
+    opacity: 0.5;
+    animation: floatUpAndFade linear infinite;
+    -webkit-animation: floatUpAndFade linear infinite;
+    user-select: none;
+    will-change: transform, opacity;
+}
+
+@keyframes floatUpAndFade {
+    0% {
+        transform: translateY(0vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-115vh) rotate(360deg) scale(1.1);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes floatUpAndFade {
+    0% {
+        -webkit-transform: translateY(0vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        -webkit-transform: translateY(-115vh) rotate(360deg) scale(1.1);
+        opacity: 0;
+    }
+}
+
+/* Structură vederi - Animație curată de swipe fără efect pe fundal */
 .view-section {
     display: none;
     opacity: 0;
-    transform: translateX(0);
-    transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    transition: opacity 0.22s ease-out;
 }
 .view-section.active-view {
     display: block;
     opacity: 1;
-    transform: translateX(0);
-}
-.view-section.swiping-out {
-    transform: translateX(40px);
-    opacity: 0;
-}
-
-/* Fundal animat fluid */
-.nature-background {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 0; overflow: hidden;
-}
-.floating-element {
-    position: absolute; bottom: -60px; opacity: 0.4;
-    animation: floatUpAndFade linear infinite; user-select: none; will-change: transform;
-}
-@keyframes floatUpAndFade {
-    0% { transform: translateY(0vh) rotate(0deg) scale(0.8); opacity: 0; }
-    20% { opacity: 0.5; }
-    80% { opacity: 0.5; }
-    100% { transform: translateY(-110vh) rotate(360deg) scale(1.05); opacity: 0; }
 }
 
 header {
@@ -62,7 +95,6 @@ header {
 .nav-links a:hover { color: var(--accent-gold); }
 .cart-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; padding: 0.65rem 1.3rem; border-radius: 30px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25); }
 
-/* Stil modern pentru butonul „Înapoi la Magazin” */
 .back-to-shop-btn {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
