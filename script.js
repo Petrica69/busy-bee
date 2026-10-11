@@ -115,7 +115,6 @@ window.addEventListener('DOMContentLoaded', () => {
     setupSwipeToCloseCart();
 });
 
-// Detecție SWIPE de la stânga la dreapta pentru mobil
 function setupSwipeToCloseCart() {
     let touchStartX = 0;
     let touchEndX = 0;
@@ -128,7 +127,6 @@ function setupSwipeToCloseCart() {
 
         cartDrawer.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
-            // Dacă glisarea e spre dreapta (Swipe Right cu peste 50px)
             if (touchEndX - touchStartX > 50) {
                 if (cartDrawer.classList.contains('open')) {
                     toggleCart();
@@ -324,6 +322,21 @@ function updateCartUI() {
     totalVal.innerText = totalPrice + ' LEI';
 }
 
+function toggleShippingType() {
+    const shippingType = document.querySelector('input[name="shipping"]:checked').value;
+    const addressLabel = document.getElementById('address-label');
+    const addressInput = document.getElementById('o-address');
+
+    if (shippingType === 'easybox') {
+        addressLabel.innerText = 'Selectează / Scrie EasyBox-ul dorit';
+        addressInput.placeholder = 'Ex: EasyBox OMV Militari, Str. Virtuții Nr. 12';
+    } else {
+        addressLabel.innerText = 'Adresa completă de livrare';
+        addressInput.placeholder = 'Oraș, Calea/Strada, Nr, Bloc, Ap';
+    }
+    renderCheckoutSummary();
+}
+
 function renderCheckoutSummary() {
     const list = document.getElementById('checkout-items-list');
     list.innerHTML = '';
@@ -339,8 +352,12 @@ function renderCheckoutSummary() {
         `;
     });
 
+    const shippingType = document.querySelector('input[name="shipping"]:checked')?.value || 'curier';
+    const shippingCost = shippingType === 'easybox' ? 15 : 20;
+
     document.getElementById('co-subtotal').innerText = subtotal + ' LEI';
-    document.getElementById('co-total').innerText = (subtotal + 20) + ' LEI';
+    document.getElementById('co-shipping-val').innerText = shippingCost + ' LEI';
+    document.getElementById('co-total').innerText = (subtotal + shippingCost) + ' LEI';
 }
 
 function toggleCardInputs() {
@@ -356,11 +373,10 @@ function toggleCardInputs() {
 function submitOrder(event) {
     event.preventDefault();
     const name = document.getElementById('o-name').value;
-    const phone = document.getElementById('o-phone').value;
-    const address = document.getElementById('o-address').value;
+    const shipping = document.querySelector('input[name="shipping"]:checked').value;
     const payment = document.querySelector('input[name="payment"]:checked').value;
 
-    alert(`Mulțumim pentru comandă, ${name}! Comanda ta a fost înregistrată cu succes și va fi procesată prin plata ${payment === 'card' ? 'cu Cardul Online' : 'Ramburs'}. Te vom contacta în curând!`);
+    alert(`Mulțumim pentru comandă, ${name}! Comanda ta va fi livrată prin ${shipping === 'easybox' ? 'Sameday EasyBox' : 'Curier Rapid'} și va fi procesată prin plata ${payment === 'card' ? 'cu Cardul Online' : 'Ramburs'}. Te vom contacta în curând!`);
     cart = [];
     updateCartUI();
     showStoreView();
