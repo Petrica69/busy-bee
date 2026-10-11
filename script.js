@@ -96,6 +96,9 @@ let currentDetailProduct = null;
 let currentDetailVariantIndex = 0;
 
 window.addEventListener('DOMContentLoaded', () => {
+    // Setează starea inițială a istoricului browserului
+    history.replaceState({ view: 'store' }, '', '');
+
     const bg = document.getElementById('nature-bg');
     if (bg) {
         const emojis = ['🐝', '🍯', '🌼', '✨'];
@@ -115,7 +118,47 @@ window.addEventListener('DOMContentLoaded', () => {
     setupSwipeGestures();
 });
 
-// Gesturi Swipe de la stânga la dreapta pe mobil
+// Suport nativ pentru săgețile de Navigare ale Browserului (Safari, Chrome, etc.)
+window.addEventListener('popstate', (e) => {
+    const cartDrawer = document.getElementById('cart-drawer');
+    if (cartDrawer && cartDrawer.classList.contains('open')) {
+        toggleCart(false);
+    }
+
+    if (e.state && e.state.view) {
+        switchView(e.state.view, false);
+    } else {
+        switchView('store', false);
+    }
+});
+
+// Funcție centralizată de Schimbare a Vederii
+function switchView(targetView, pushToHistory = true) {
+    const storeView = document.getElementById('store-view');
+    const detailView = document.getElementById('product-detail-view');
+    const checkoutView = document.getElementById('checkout-view');
+
+    const views = [storeView, detailView, checkoutView];
+    views.forEach(v => {
+        if (v) v.classList.remove('active-view', 'swiping-out');
+    });
+
+    if (targetView === 'detail' && detailView) {
+        detailView.classList.add('active-view');
+    } else if (targetView === 'checkout' && checkoutView) {
+        checkoutView.classList.add('active-view');
+    } else if (storeView) {
+        storeView.classList.add('active-view');
+    }
+
+    if (pushToHistory) {
+        history.pushState({ view: targetView }, '', '');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Gesturi de Swipe Orizontal pe mobil
 function setupSwipeGestures() {
     let touchStartX = 0;
     let touchStartY = 0;
@@ -132,18 +175,22 @@ function setupSwipeGestures() {
         let diffX = touchEndX - touchStartX;
         let diffY = Math.abs(touchEndY - touchStartY);
 
-        // Swipe la dreapta semnificativ (> 70px) și predominant pe orizontală
-        if (diffX > 70 && diffY < 100) {
+        // Swipe rapid spre dreapta (peste 50px) și mai degrabă pe orizontală decât pe verticală
+        if (diffX > 50 && diffY < 80) {
             const cartDrawer = document.getElementById('cart-drawer');
-            const detailView = document.getElementById('product-detail-view');
-            const checkoutView = document.getElementById('checkout-view');
+            const activeView = document.querySelector('.view-section.active-view');
 
             if (cartDrawer && cartDrawer.classList.contains('open')) {
                 toggleCart();
-            } else if (detailView && detailView.style.display === 'block') {
-                showStoreView();
-            } else if (checkoutView && checkoutView.style.display === 'block') {
-                showStoreView();
+            } else if (activeView && activeView.id !== 'store-view') {
+                activeView.classList.add('swiping-out');
+                setTimeout(() => {
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        showStoreView();
+                    }
+                }, 180);
             }
         }
     }, { passive: true });
@@ -206,10 +253,7 @@ function selectVariant(btn) {
 }
 
 function showStoreView() {
-    document.getElementById('store-view').style.display = 'block';
-    document.getElementById('product-detail-view').style.display = 'none';
-    document.getElementById('checkout-view').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switchView('store', true);
 }
 
 function openProductDetail(productId) {
@@ -239,10 +283,7 @@ function openProductDetail(productId) {
         picker.appendChild(b);
     });
 
-    document.getElementById('store-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'block';
-    document.getElementById('checkout-view').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switchView('detail', true);
 }
 
 function goToCheckoutPage() {
@@ -250,17 +291,28 @@ function goToCheckoutPage() {
         alert('Coșul tău este gol!');
         return;
     }
-    toggleCart();
-    document.getElementById('store-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'none';
-    document.getElementById('checkout-view').style.display = 'block';
+    toggleCart(false);
+    switchView('checkout', true);
     renderCheckoutSummary();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function toggleCart() {
-    document.getElementById('cart-drawer').classList.toggle('open');
-    document.getElementById('cart-overlay').classList.toggle('open');
+function toggleCart(forceState) {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-overlay');
+    if (!drawer || !overlay) return;
+
+    if (typeof forceState === 'boolean') {
+        if (forceState) {
+            drawer.classList.add('open');
+            overlay.classList.add('open');
+        } else {
+            drawer.classList.remove('open');
+            overlay.classList.remove('open');
+        }
+    } else {
+        drawer.classList.toggle('open');
+        overlay.classList.toggle('open');
+    }
 }
 
 function addToCartFromCard(event, btn, productName) {
@@ -277,7 +329,7 @@ function addToCartFromCard(event, btn, productName) {
         cart.push({ name: productName, size: size, price: price, qty: 1 });
     }
     updateCartUI();
-    toggleCart();
+    toggleCart(true);
 }
 
 function addCurrentDetailToCart() {
@@ -290,7 +342,7 @@ function addCurrentDetailToCart() {
         cart.push({ name: currentDetailProduct.title, size: variant.size, price: variant.price, qty: 1 });
     }
     updateCartUI();
-    toggleCart();
+    toggleCart(true);
 }
 
 function changeQty(index, delta) {
