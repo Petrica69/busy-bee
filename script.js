@@ -1,5 +1,158 @@
 let cart = [];
 
+// Baza de date cu descrierile detaliate pentru fiecare produs
+const productsData = {
+    poliflora: {
+        title: "Miere Polifloră",
+        price: 35,
+        img: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=800&q=80",
+        desc: "Obținută din nectarul a zeci de specii de flori sălbatice de pe dealurile însorite ale României. Este un cocktail natural de vitamine și minerale, recunoscut pentru efectul său tonic general și sprijinul adus sistemului imunitar în sezonul rece.",
+        variants: [
+            { size: "400g", price: 35 },
+            { size: "800g", price: 60 },
+            { size: "1kg", price: 75 }
+        ]
+    },
+    salcam: {
+        title: "Miere de Salcâm",
+        price: 45,
+        img: "https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=800&q=80",
+        desc: "Considerată regina miersurilor datorită limpezimii sale cristaline și a faptului că rămâne în stare lichidă o perioadă foarte îndelungată. Are un gust fin, delicat, fiind ideală pentru îndulcirea ceaiurilor fără să le schimbe aroma naturală.",
+        variants: [
+            { size: "400g", price: 45 },
+            { size: "800g", price: 80 },
+            { size: "1kg", price: 95 }
+        ]
+    },
+    tei: {
+        title: "Miere de Tei",
+        price: 40,
+        img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=800&q=80",
+        desc: "Cu o aromă puternică, inconfundabilă și o culoare ambra-deschisă, mierea de tei este renumită pentru proprietățile ei calmante. Este alegerea perfectă pentru o seară liniștită, consumată într-un ceai cald înainte de culcare.",
+        variants: [
+            { size: "400g", price: 40 },
+            { size: "800g", price: 70 },
+            { size: "1kg", price: 85 }
+        ]
+    },
+    rapita: {
+        title: "Miere de Rapiță",
+        price: 35,
+        img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+        desc: "O miere unică prin textura ei cremoasă, de un alb-gălbui deosebit. Se topește instant pe limbă și conține cantități ridicate de coenzima Q10, fiind extrem de apreciată pentru menținerea sănătății sistemului cardiovascular.",
+        variants: [
+            { size: "400g", price: 35 },
+            { size: "800g", price: 60 },
+            { size: "1kg", price: 75 }
+        ]
+    },
+    floare: {
+        title: "Miere de Floarea-Soarelui",
+        price: 30,
+        img: "https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80",
+        desc: "O explozie de energie curată, cu o culoare galben-aurie intensă și o aromă inconfundabilă de vară. Cristalizează rapid datorită conținutului natural bogat în glucoză, fiind preferată de sportivi și persoane cu activitate fizică intensă.",
+        variants: [
+            { size: "400g", price: 30 },
+            { size: "800g", price: 55 },
+            { size: "1kg", price: 65 }
+        ]
+    },
+    pastura: {
+        title: "Păstură Naturală",
+        price: 60,
+        img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+        desc: "Ccunoscută pe bună dreptate drept „pâinea albinelor”, păstura este polenul fermentat natural în faguri. Este un superaliment excepțional, extrem de bogat în aminoacizi esențiali și seleniu, ideal pentru detoxifierea ficatului și imunitate.",
+        variants: [
+            { size: "200g", price: 60 },
+            { size: "400g", price: 110 },
+            { size: "800g", price: 200 }
+        ]
+    },
+    propolis: {
+        title: "Tinctură de Propolis",
+        price: 25,
+        img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80",
+        desc: "Extract pur de propolis în soluție hidroalcoolică, cel mai puternic antibiotic natural produs de albine. Ajută la apărarea organismului împotriva infecțiilor, vindecarea rapidă a rănilor și menținerea sănătății căilor respiratorii.",
+        variants: [
+            { size: "30ml", price: 25 },
+            { size: "50ml", price: 40 },
+            { size: "100ml", price: 70 }
+        ]
+    }
+};
+
+let currentActiveProductKey = null;
+
+function openProductDetail(productKey) {
+    const p = productsData[productKey];
+    if (!p) return;
+    currentActiveProductKey = productKey;
+
+    document.getElementById('detail-img').src = p.img;
+    document.getElementById('detail-title').innerText = p.title;
+    document.getElementById('detail-price').innerText = p.variants[0].price;
+    document.getElementById('detail-desc').innerText = p.desc;
+
+    // Generăm butoanele de gramaj dinamic
+    const picker = document.getElementById('detail-variant-picker');
+    picker.innerHTML = `<div class="ios-slider"></div>` + p.variants.map((v, idx) => `
+        <button class="v-btn ${idx === 0 ? 'active' : ''}" data-size="${v.size}" data-price="${v.price}" onclick="selectDetailVariant(this)">${v.size}</button>
+    `).join('');
+
+    // Resetăm poziția sliderului
+    const slider = picker.querySelector('.ios-slider');
+    if(slider) slider.style.transform = 'translateX(0%)';
+
+    document.getElementById('store-view').style.display = 'none';
+    document.getElementById('checkout-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectDetailVariant(button) {
+    const picker = button.closest('.variant-picker');
+    picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    const buttons = Array.from(picker.querySelectorAll('.v-btn'));
+    const index = buttons.indexOf(button);
+    const slider = picker.querySelector('.ios-slider');
+    if (slider) {
+        slider.style.transform = `translateX(${index * 100}%)`;
+    }
+
+    const newPrice = button.getAttribute('data-price');
+    document.getElementById('detail-price').innerText = newPrice;
+}
+
+function addCurrentDetailToCart() {
+    const p = productsData[currentActiveProductKey];
+    const picker = document.getElementById('detail-variant-picker');
+    const activeVar = picker.querySelector('.v-btn.active');
+    const size = activeVar.getAttribute('data-size');
+    const price = parseInt(activeVar.getAttribute('data-price'));
+
+    const itemKey = `${p.title}-${size}`;
+    const existing = cart.find(item => item.key === itemKey);
+
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({ key: itemKey, name: p.title, size, price, qty: 1 });
+    }
+
+    updateCartUI();
+    toggleCart(true);
+
+    const btn = document.getElementById('detail-add-btn');
+    btn.innerText = "Adăugat în Coș! ✓";
+    btn.style.background = "#10b981";
+    setTimeout(() => {
+        btn.innerText = "Adaugă în Coș";
+        btn.style.background = "";
+    }, 1200);
+}
+
 // Generare fundal optimizat
 function createNatureBackground() {
     const container = document.getElementById('nature-bg');
@@ -41,7 +194,7 @@ function toggleFaq(element) {
     }
 }
 
-// Selector Variante (Efect Miere Lichidă)
+// Selector Variante (Efect Miere Lichidă din carduri)
 function selectVariant(button) {
     const picker = button.closest('.variant-picker');
     picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
@@ -69,41 +222,7 @@ function selectVariant(button) {
     }, 120);
 }
 
-// Albinuță spre coș
-function triggerFlyingBee(event) {
-    const cartTarget = document.getElementById('cart-target-icon');
-    if (!cartTarget) return;
-    const rectTarget = cartTarget.getBoundingClientRect();
-    const startX = event.clientX || (event.touches && event.touches[0].clientX) || window.innerWidth / 2;
-    const startY = event.clientY || (event.touches && event.touches[0].clientY) || window.innerHeight / 2;
-
-    const bee = document.createElement('div');
-    bee.className = 'flying-bee';
-    bee.innerText = '🐝';
-    document.body.appendChild(bee);
-
-    const targetX = rectTarget.left + rectTarget.width / 2;
-    const targetY = rectTarget.top + rectTarget.height / 2;
-
-    bee.style.position = 'fixed';
-    bee.style.fontSize = '1.8rem';
-    bee.style.zIndex = '9999';
-    bee.style.pointerEvents = 'none';
-    bee.style.left = `${startX}px`;
-    bee.style.top = `${startY}px`;
-    bee.style.transition = 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-
-    setTimeout(() => {
-        bee.style.transform = `translate(${targetX - startX}px, ${targetY - startY}px) scale(0.2) rotate(45deg)`;
-        bee.style.opacity = '0';
-    }, 20);
-
-    setTimeout(() => { bee.remove(); }, 650);
-}
-
 function addToCartFromCard(event, button, productName) {
-    triggerFlyingBee(event);
-
     const card = button.closest('.product-card');
     const activeVar = card.querySelector('.v-btn.active');
     const size = activeVar.getAttribute('data-size');
@@ -119,8 +238,7 @@ function addToCartFromCard(event, button, productName) {
     }
 
     updateCartUI();
-    
-    setTimeout(() => { toggleCart(true); }, 650);
+    toggleCart(true);
 
     button.innerText = "Adăugat! ✓";
     button.style.background = "#10b981";
@@ -205,6 +323,7 @@ function goToCheckoutPage() {
     }
     toggleCart();
     document.getElementById('store-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'none';
     document.getElementById('checkout-view').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateCheckoutSummary();
@@ -212,6 +331,7 @@ function goToCheckoutPage() {
 
 function showStoreView() {
     document.getElementById('checkout-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'none';
     document.getElementById('store-view').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
