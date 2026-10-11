@@ -96,20 +96,30 @@ let currentDetailProduct = null;
 let currentDetailVariantIndex = 0;
 
 window.addEventListener('DOMContentLoaded', () => {
-    // Setează starea inițială a istoricului browserului
     history.replaceState({ view: 'store' }, '', '');
 
+    // Generare elemente decorative animate pe fundal
     const bg = document.getElementById('nature-bg');
     if (bg) {
+        bg.innerHTML = '';
         const emojis = ['🐝', '🍯', '🌼', '✨'];
         for (let i = 0; i < 18; i++) {
             const span = document.createElement('span');
             span.className = 'floating-element';
             span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            span.style.left = Math.random() * 100 + 'vw';
-            span.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
-            span.style.animationDuration = (Math.random() * 12 + 10) + 's';
-            span.style.animationDelay = (Math.random() * 8) + 's';
+            
+            const leftPos = Math.random() * 95;
+            const size = Math.random() * 0.9 + 1;
+            const duration = Math.random() * 10 + 9;
+            const delay = Math.random() * 7;
+
+            span.style.left = leftPos + 'vw';
+            span.style.fontSize = size + 'rem';
+            span.style.animationDuration = duration + 's';
+            span.style.webkitAnimationDuration = duration + 's';
+            span.style.animationDelay = delay + 's';
+            span.style.webkitAnimationDelay = delay + 's';
+
             bg.appendChild(span);
         }
     }
@@ -118,7 +128,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupSwipeGestures();
 });
 
-// Suport nativ pentru săgețile de Navigare ale Browserului (Safari, Chrome, etc.)
+// Săgețile de Navigare ale Browserului
 window.addEventListener('popstate', (e) => {
     const cartDrawer = document.getElementById('cart-drawer');
     if (cartDrawer && cartDrawer.classList.contains('open')) {
@@ -132,7 +142,6 @@ window.addEventListener('popstate', (e) => {
     }
 });
 
-// Funcție centralizată de Schimbare a Vederii
 function switchView(targetView, pushToHistory = true) {
     const storeView = document.getElementById('store-view');
     const detailView = document.getElementById('product-detail-view');
@@ -140,7 +149,7 @@ function switchView(targetView, pushToHistory = true) {
 
     const views = [storeView, detailView, checkoutView];
     views.forEach(v => {
-        if (v) v.classList.remove('active-view', 'swiping-out');
+        if (v) v.classList.remove('active-view');
     });
 
     if (targetView === 'detail' && detailView) {
@@ -158,7 +167,7 @@ function switchView(targetView, pushToHistory = true) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Gesturi de Swipe Orizontal pe mobil
+// Swipe rapid fără blocat animația de fundal
 function setupSwipeGestures() {
     let touchStartX = 0;
     let touchStartY = 0;
@@ -175,22 +184,18 @@ function setupSwipeGestures() {
         let diffX = touchEndX - touchStartX;
         let diffY = Math.abs(touchEndY - touchStartY);
 
-        // Swipe rapid spre dreapta (peste 50px) și mai degrabă pe orizontală decât pe verticală
-        if (diffX > 50 && diffY < 80) {
+        if (diffX > 55 && diffY < 75) {
             const cartDrawer = document.getElementById('cart-drawer');
             const activeView = document.querySelector('.view-section.active-view');
 
             if (cartDrawer && cartDrawer.classList.contains('open')) {
-                toggleCart();
+                toggleCart(false);
             } else if (activeView && activeView.id !== 'store-view') {
-                activeView.classList.add('swiping-out');
-                setTimeout(() => {
-                    if (window.history.length > 1) {
-                        window.history.back();
-                    } else {
-                        showStoreView();
-                    }
-                }, 180);
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    showStoreView();
+                }
             }
         }
     }, { passive: true });
