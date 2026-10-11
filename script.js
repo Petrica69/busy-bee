@@ -112,7 +112,31 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     toggleCardInputs();
     setupCardValidation();
+    setupSwipeToCloseCart();
 });
+
+// Detecție SWIPE de la stânga la dreapta pentru mobil
+function setupSwipeToCloseCart() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const cartDrawer = document.getElementById('cart-drawer');
+
+    if (cartDrawer) {
+        cartDrawer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        cartDrawer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            // Dacă glisarea e spre dreapta (Swipe Right cu peste 50px)
+            if (touchEndX - touchStartX > 50) {
+                if (cartDrawer.classList.contains('open')) {
+                    toggleCart();
+                }
+            }
+        }, { passive: true });
+    }
+}
 
 function setupCardValidation() {
     const cardNumberInput = document.getElementById('c-number');
@@ -258,6 +282,16 @@ function addCurrentDetailToCart() {
     toggleCart();
 }
 
+function changeQty(index, delta) {
+    if (cart[index]) {
+        cart[index].qty += delta;
+        if (cart[index].qty <= 0) {
+            cart.splice(index, 1);
+        }
+        updateCartUI();
+    }
+}
+
 function updateCartUI() {
     const countSpan = document.getElementById('cart-count');
     const itemsContainer = document.getElementById('cart-items');
@@ -275,20 +309,19 @@ function updateCartUI() {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem;">
                 <div>
                     <div style="font-weight: 700; font-size: 0.95rem;">${item.name}</div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted);">${item.size} | ${item.price} LEI x ${item.qty}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">${item.size} | ${item.price} LEI</div>
                 </div>
-                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1rem;">Șterge</button>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button class="cart-qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                    <span style="font-weight: 700; font-size: 0.95rem; min-width: 18px; text-align: center;">${item.qty}</span>
+                    <button class="cart-qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                </div>
             </div>
         `;
     });
 
     countSpan.innerText = totalCount;
     totalVal.innerText = totalPrice + ' LEI';
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartUI();
 }
 
 function renderCheckoutSummary() {
