@@ -14,10 +14,31 @@
     <!-- Header fix / Bara de navigare -->
     <header>
         <div class="navbar">
+            <!-- LOGO RUSTIC-GEOMETRIC NOU -->
             <div class="logo" onclick="showStoreView()">
-                <span>🐝</span>
-                <span>Busy Bee</span>
+                <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px;">
+                    <!-- Fagure geometric exterior -->
+                    <path d="M20 4L33 11.5V28.5L20 36L7 28.5V11.5L20 4Z" stroke="url(#goldGradient)" stroke-width="2.2" stroke-linejoin="round" fill="rgba(245, 158, 11, 0.08)"/>
+                    
+                    <!-- Structură interioară fagure -->
+                    <path d="M20 13V27M13 17L27 25M13 25L27 17" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.2" stroke-linecap="round"/>
+
+                    <!-- Albină minimalistă în centru -->
+                    <ellipse cx="20" cy="20" rx="3.2" ry="5.5" fill="#f59e0b"/>
+                    <circle cx="20" cy="12.5" r="2" fill="#fbbf24"/>
+                    <path d="M15.5 16.5C13.5 14.5 11.5 15.5 13.5 17.5C14.5 18.5 16.5 17.5 15.5 16.5Z" fill="rgba(255,255,255,0.9)"/>
+                    <path d="M24.5 16.5C26.5 14.5 28.5 15.5 26.5 17.5C25.5 18.5 23.5 17.5 24.5 16.5Z" fill="rgba(255,255,255,0.9)"/>
+
+                    <defs>
+                        <linearGradient id="goldGradient" x1="7" y1="4" x2="33" y2="36" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#f59e0b"/>
+                            <stop offset="1" stop-color="#fbbf24"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span style="letter-spacing: -0.02em; font-weight: 800; font-size: 1.35rem; font-family: serif;">Busy <span style="color: var(--accent-gold);">Bee</span></span>
             </div>
+
             <ul class="nav-links">
                 <li><a href="#hero">Acasă</a></li>
                 <li><a href="#produse">Produse</a></li>
@@ -54,7 +75,7 @@
             </div>
         </div>
 
-        <!-- Secțiunea Produse (Grid simetric fixat pe 2 coloane egale) -->
+        <!-- Secțiunea Produse (Grid 2 coloane pe mobil) -->
         <section id="produse" class="products-section">
             <div class="section-title-wrap">
                 <h2>Miere Pură &amp; Produse Apicole</h2>
@@ -284,7 +305,7 @@
 
     </div>
 
-    <!-- VEDEREA DE DETALII PRODUS (PAGINĂ NOUĂ STIL APPLE) -->
+    <!-- VEDEREA DE DETALII PRODUS -->
     <div id="product-detail-view" style="display: none;">
         <div class="detail-page-container">
             <button class="back-to-shop" onclick="showStoreView()">← Înapoi la Produse</button>
@@ -321,7 +342,7 @@
         </div>
     </div>
 
-    <!-- VEDEREA DE CHECKOUT (PAGINA DE FINALIZARE COMANDĂ) -->
+    <!-- VEDEREA DE CHECKOUT -->
     <div id="checkout-view" style="display: none;">
         <div class="checkout-page-container">
             <button class="back-to-shop" onclick="showStoreView()">← Înapoi la Magazin</button>
@@ -371,7 +392,7 @@
         </div>
     </div>
 
-    <!-- SERTARUL DE COȘ (SLIDE-OUT CART) -->
+    <!-- SERTARUL DE COȘ -->
     <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
     <div id="cart-drawer" class="cart-drawer">
         <div class="cart-header">
