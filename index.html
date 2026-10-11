@@ -365,17 +365,17 @@
                             <input type="text" id="o-address" required placeholder="Oraș, Calea/Strada, Nr, Bloc, Ap">
                         </div>
 
-                        <!-- SELECTARE METODĂ DE PLATĂ -->
+                        <!-- SELECTARE METODĂ DE PLATĂ - VERTICALĂ PENTRU MOBIL -->
                         <div class="f-group" style="margin-top: 1rem;">
-                            <label style="margin-bottom: 0.5rem; display: block;">Metodă de Plată</label>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <label style="display: flex; align-items: center; gap: 8px; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer;">
-                                    <input type="radio" name="payment" value="card" checked onclick="toggleCardFields(true)" style="accent-color: var(--accent-gold);">
-                                    <span style="font-size: 0.9rem; font-weight: 500;">💳 Card Online</span>
+                            <label style="margin-bottom: 0.6rem; display: block;">Metodă de Plată</label>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer;">
+                                    <input type="radio" name="payment" value="card" checked onclick="toggleCardFields(true)" style="accent-color: var(--accent-gold); transform: scale(1.2);">
+                                    <span style="font-size: 0.95rem; font-weight: 600;">💳 Card Online</span>
                                 </label>
-                                <label style="display: flex; align-items: center; gap: 8px; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer;">
-                                    <input type="radio" name="payment" value="ramburs" onclick="toggleCardFields(false)" style="accent-color: var(--accent-gold);">
-                                    <span style="font-size: 0.9rem; font-weight: 500;">💵 Ramburs la Curier</span>
+                                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer;">
+                                    <input type="radio" name="payment" value="ramburs" onclick="toggleCardFields(false)" style="accent-color: var(--accent-gold); transform: scale(1.2);">
+                                    <span style="font-size: 0.95rem; font-weight: 600;">💵 Ramburs la Curier</span>
                                 </label>
                             </div>
                         </div>
