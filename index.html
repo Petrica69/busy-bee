@@ -365,15 +365,15 @@
                             <input type="text" id="o-address" required placeholder="Oraș, Calea/Strada, Nr, Bloc, Ap">
                         </div>
 
-                        <!-- SELECTARE METODĂ DE PLATĂ - VERTICALĂ PENTRU MOBIL -->
-                        <div class="f-group" style="margin-top: 1rem;">
+                        <!-- SELECTARE METODĂ DE PLATĂ -->
+                        <div class="f-group payment-method-group" style="margin-top: 1rem;">
                             <label style="margin-bottom: 0.6rem; display: block;">Metodă de Plată</label>
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
-                                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer;">
+                            <div class="payment-options-container">
+                                <label class="payment-option-label">
                                     <input type="radio" name="payment" value="card" checked onclick="toggleCardFields(true)" style="accent-color: var(--accent-gold); transform: scale(1.2);">
                                     <span style="font-size: 0.95rem; font-weight: 600;">💳 Card Online</span>
                                 </label>
-                                <label style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer;">
+                                <label class="payment-option-label">
                                     <input type="radio" name="payment" value="ramburs" onclick="toggleCardFields(false)" style="accent-color: var(--accent-gold); transform: scale(1.2);">
                                     <span style="font-size: 0.95rem; font-weight: 600;">💵 Ramburs la Curier</span>
                                 </label>
