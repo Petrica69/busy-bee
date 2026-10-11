@@ -3,281 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busy Bee — Miere Vie & Experiențe Din Stupină</title>
+    <title>Busy Bee | Miere Pură &amp; Naturală</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Lumea vie de pe fundal (Albinuțe, Floricele și Miere) -->
-    <div class="nature-background" id="nature-bg"></div>
+    <!-- Fundal animat optimizat -->
+    <div id="nature-bg" class="nature-background"></div>
 
-    <!-- Header Dinamic cu Coșul Sus și Liquid Glass -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="logo animate-pop" onclick="showStoreView()" style="cursor: pointer;">
-                <span class="logo-icon">🐝</span> 
-                <span class="logo-text">Busy Bee</span>
+    <!-- Header fix / Bara de navigare -->
+    <header>
+        <div class="navbar">
+            <div class="logo" onclick="showStoreView()">
+                <span>🐝</span>
+                <span>Busy Bee</span>
             </div>
             <ul class="nav-links">
-                <li><a href="#produse" onclick="showStoreView()">Stupul & Borcanele</a></li>
-                <li><a href="#faq" onclick="showStoreView()">Sfaturi & FAQ</a></li>
+                <li><a href="#hero">Acasă</a></li>
+                <li><a href="#produse">Produse</a></li>
+                <li><a href="#faq">Întrebări</a></li>
             </ul>
-            <button class="cart-btn pulse-glow" id="cart-target-icon" onclick="toggleCart()">
-                🛒 Coșul tău (<span id="cart-count">0</span>)
+            <button class="cart-btn" onclick="toggleCart()">
+                Coș (<span id="cart-count">0</span>)
             </button>
-        </nav>
+        </div>
     </header>
 
-    <!-- VIZUALUL 1: MAGAZINUL -->
+    <!-- VEDEREA PRINCIPALĂ A MAGAZINULUI -->
     <div id="store-view">
-        <section class="hero-section">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
             <div class="hero-content">
-                <span class="badge-pill">⚡ Ediție Limitată 2026</span>
-                <h1 class="hero-title">Aurul lichid.<br><span>Necenzurat de fabrică.</span></h1>
-                <p class="hero-desc">Miere vie, 100% naturală, extrasă cu pasiune direct din faguri. Fără compromisuri, fără procesare termică.</p>
+                <span class="badge-pill">100% Apicultură Românească</span>
+                <h1 class="hero-title">Dacă viața îți dă lămâi, pune-le miere <span>Busy Bee.</span></h1>
+                <p class="hero-desc">Miere pură, neprocesată termic, extrasă cu grijă direct din stupii noștri. Gustul autentic al naturii, livrat direct la ușa ta.</p>
                 <div class="hero-buttons">
-                    <a href="#produse" class="btn-main">Explorează Catalogul</a>
+                    <a href="#produse" class="btn-main">Descoperă Mierea</a>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="floating-jar glass-card">
-                    <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=800&q=80" alt="Miere Busy Bee">
-                </div>
+            <div class="floating-jar">
+                <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=800&q=80" alt="Borcan Miere Busy Bee">
             </div>
         </section>
 
-        <!-- Marquee Bar Derulant (100% Serios) -->
+        <!-- Marquee Text Rulant -->
         <div class="marquee-container">
             <div class="marquee-track">
-                <span>🐝 100% Natural din Transilvania</span> &bull; 
-                <span>🍯 Miere vie, neîncălzită și neprocesată termic</span> &bull; 
-                <span>🌿 Păstură & Căpăceală recoltate direct din stupină</span> &bull; 
-                <span>✨ Gustul pur al mierii nefiltrate</span> &bull; 
-                <span>⚡ Livrare rapidă în 24h în condiții de siguranță</span> &bull;
-                <span>🐝 100% Natural din Transilvania</span> &bull; 
-                <span>🍯 Miere vie, neîncălzită și neprocesată termic</span> &bull; 
-                <span>🌿 Păstură & Căpăceală recoltate direct din stupină</span> &bull; 
+                <span>🐝 LIVRARE RAPIDĂ ÎN TOATĂ ȚARA &nbsp;•&nbsp; 🍯 100% NATURALĂ &amp; NESTURATĂ &nbsp;•&nbsp; ✨ CALITATE PREMIUM APICOLĂ &nbsp;•&nbsp; 🌼 FĂRĂ ADAOS DE ZAHĂR &nbsp;•&nbsp; 🐝 LIVRARE RAPIDĂ ÎN TOATĂ ȚARA &nbsp;•&nbsp; 🍯 100% NATURALĂ &amp; NESTURATĂ &nbsp;•&nbsp; ✨ CALITATE PREMIUM APICOLĂ &nbsp;•&nbsp; 🌼 FĂRĂ ADAOS DE ZAHĂR &nbsp;•&nbsp;</span>
             </div>
         </div>
 
-        <!-- Produse -->
+        <!-- Secțiunea Produse (Grid 2 coloane pe mobil) -->
         <section id="produse" class="products-section">
             <div class="section-title-wrap">
-                <h2>Alege Din Stupină</h2>
-                <p>Dacă viața îți dă lămâi, pune-le miere Busy Bee.</p>
+                <h2>Miere Pură &amp; Naturală</h2>
+                <p>Alege sortimentul tău preferat, direct din stupina noastră.</p>
             </div>
 
             <div class="product-grid">
-                
-                <!-- 1. Salcâm -->
+                <!-- Produs 1: Miere Polifloră -->
+                <div class="product-card glass-card">
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80" alt="Miere Polifloră">
+                    </div>
+                    <h3>Miere Polifloră</h3>
+                    <p>100% naturală, culeasă din flora bogată a dealurilor însorite.</p>
+                    
+                    <div class="variant-picker">
+                        <div class="ios-slider"></div>
+                        <button class="v-btn active" data-size="400g" data-price="35" onclick="selectVariant(this)">400g</button>
+                        <button class="v-btn" data-size="800g" data-price="60" onclick="selectVariant(this)">800g</button>
+                        <button class="v-btn" data-size="1kg" data-price="75" onclick="selectVariant(this)">1kg</button>
+                    </div>
+
+                    <div class="card-footer">
+                        <span class="price-tag"><span class="price-val">35</span> LEI</span>
+                        <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Miere Polifloră')">Adaugă</button>
+                    </div>
+                </div>
+
+                <!-- Produs 2: Miere de Salcâm -->
                 <div class="product-card glass-card">
                     <div class="card-img-wrap">
                         <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=600&q=80" alt="Miere de Salcâm">
                     </div>
                     <h3>Miere de Salcâm</h3>
-                    <p>Fină, translucidă, extrem de apreciată pentru dulceața ei fină.</p>
-                    
+                    <p>Fină, translucidă și delicioasă. Un gust diafan și delicat.</p>
+
                     <div class="variant-picker">
                         <div class="ios-slider"></div>
-                        <button class="v-btn active" data-size="250g" data-price="25" onclick="selectVariant(this)">250g</button>
-                        <button class="v-btn" data-size="500g" data-price="40" onclick="selectVariant(this)">500g</button>
-                        <button class="v-btn" data-size="1kg" data-price="75" onclick="selectVariant(this)">1kg</button>
+                        <button class="v-btn active" data-size="400g" data-price="45" onclick="selectVariant(this)">400g</button>
+                        <button class="v-btn" data-size="800g" data-price="80" onclick="selectVariant(this)">800g</button>
+                        <button class="v-btn" data-size="1kg" data-price="95" onclick="selectVariant(this)">1kg</button>
                     </div>
 
                     <div class="card-footer">
-                        <span class="price-tag"><span class="price-val">25</span> LEI</span>
+                        <span class="price-tag"><span class="price-val">45</span> LEI</span>
                         <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Miere de Salcâm')">Adaugă</button>
                     </div>
                 </div>
 
-                <!-- 2. Polifloră -->
+                <!-- Produs 3: Miere de Tei -->
                 <div class="product-card glass-card">
                     <div class="card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1603839375735-41bab63f1deb?auto=format&fit=crop&w=600&q=80" alt="Miere Polifloră">
-                    </div>
-                    <h3>Miere Polifloră</h3>
-                    <p>Esență pură din sute de flori de câmp. Bogată în minerale esențiale.</p>
-                    
-                    <div class="variant-picker">
-                        <div class="ios-slider"></div>
-                        <button class="v-btn active" data-size="250g" data-price="20" onclick="selectVariant(this)">250g</button>
-                        <button class="v-btn" data-size="500g" data-price="35" onclick="selectVariant(this)">500g</button>
-                        <button class="v-btn" data-size="1kg" data-price="65" onclick="selectVariant(this)">1kg</button>
-                    </div>
-
-                    <div class="card-footer">
-                        <span class="price-tag"><span class="price-val">20</span> LEI</span>
-                        <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Miere Polifloră')">Adaugă</button>
-                    </div>
-                </div>
-
-                <!-- 3. Tei -->
-                <div class="product-card glass-card">
-                    <div class="card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1573697610008-4c72b4e9508f?auto=format&fit=crop&w=600&q=80" alt="Miere de Tei">
+                        <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80" alt="Miere de Tei">
                     </div>
                     <h3>Miere de Tei</h3>
-                    <p>Parfum intens de flori de tei, perfectă pentru serile liniștite de ceai.</p>
-                    
+                    <p>Aromă intensă și relaxantă. Perfectă pentru ceai și seri liniștite.</p>
+
                     <div class="variant-picker">
                         <div class="ios-slider"></div>
-                        <button class="v-btn active" data-size="250g" data-price="22" onclick="selectVariant(this)">250g</button>
-                        <button class="v-btn" data-size="500g" data-price="38" onclick="selectVariant(this)">500g</button>
-                        <button class="v-btn" data-size="1kg" data-price="70" onclick="selectVariant(this)">1kg</button>
+                        <button class="v-btn active" data-size="400g" data-price="40" onclick="selectVariant(this)">400g</button>
+                        <button class="v-btn" data-size="800g" data-price="70" onclick="selectVariant(this)">800g</button>
+                        <button class="v-btn" data-size="1kg" data-price="85" onclick="selectVariant(this)">1kg</button>
                     </div>
 
                     <div class="card-footer">
-                        <span class="price-tag"><span class="price-val">22</span> LEI</span>
+                        <span class="price-tag"><span class="price-val">40</span> LEI</span>
                         <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Miere de Tei')">Adaugă</button>
                     </div>
                 </div>
-
-                <!-- 4. Răpiță -->
-                <div class="product-card glass-card">
-                    <div class="card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1656269265590-721ed3544b8e?auto=format&fit=crop&w=600&q=80" alt="Miere de Răpiță">
-                    </div>
-                    <h3>Miere de Răpiță</h3>
-                    <p>Textură albă, cremoasă, ușor de întins pe pâine. Foarte blândă cu stomacul.</p>
-                    
-                    <div class="variant-picker">
-                        <div class="ios-slider"></div>
-                        <button class="v-btn active" data-size="250g" data-price="20" onclick="selectVariant(this)">250g</button>
-                        <button class="v-btn" data-size="500g" data-price="32" onclick="selectVariant(this)">500g</button>
-                        <button class="v-btn" data-size="1kg" data-price="60" onclick="selectVariant(this)">1kg</button>
-                    </div>
-
-                    <div class="card-footer">
-                        <span class="price-tag"><span class="price-val">20</span> LEI</span>
-                        <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Miere de Răpiță')">Adaugă</button>
-                    </div>
-                </div>
-
-                <!-- 5. Căpăceală -->
-                <div class="product-card glass-card">
-                    <div class="card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=600&q=80" alt="Căpăceală">
-                    </div>
-                    <h3>Căpăceală Apicolă</h3>
-                    <p>Ceară și miere pură recoltată direct de pe rame. Un remediu formidabil.</p>
-                    
-                    <div class="variant-picker" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="ios-slider" style="width: 50%;"></div>
-                        <button class="v-btn active" data-size="250g" data-price="25" onclick="selectVariant(this)">250g</button>
-                        <button class="v-btn" data-size="500g" data-price="45" onclick="selectVariant(this)">500g</button>
-                    </div>
-
-                    <div class="card-footer">
-                        <span class="price-tag"><span class="price-val">25</span> LEI</span>
-                        <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Căpăceală Apicolă')">Adaugă</button>
-                    </div>
-                </div>
-
-                <!-- 6. Ramă cu Miere -->
-                <div class="product-card glass-card">
-                    <div class="card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1573697610008-4c72b4e9508f?auto=format&fit=crop&w=600&q=80" alt="Ramă cu miere">
-                    </div>
-                    <h3>Ramă Întreagă în Fagure</h3>
-                    <p>Exact ca în stupină. Mesteci fagurele plin de miere naturală proaspătă.</p>
-                    
-                    <div class="variant-picker" style="grid-template-columns: 1fr;">
-                        <button class="v-btn active" data-size="1 Buc (aprox 2kg)" data-price="120" onclick="selectVariant(this)" style="width: 100%;">1 Ramă (Aprox. 2kg)</button>
-                    </div>
-
-                    <div class="card-footer">
-                        <span class="price-tag"><span class="price-val">120</span> LEI</span>
-                        <button class="add-cart-btn" onclick="addToCartFromCard(event, this, 'Ramă Întreagă în Fagure')">Adaugă</button>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <!-- FAQ & SFATURI -->
+        <!-- Secțiunea FAQ (Întrebări Frecvente) -->
         <section id="faq" class="faq-section">
             <div class="section-title-wrap">
-                <h2>Tot ce trebuie să știi</h2>
-                <p>Transparență absolută despre mierea noastră neprocesată.</p>
+                <h2>Întrebări Frecvente</h2>
+                <p>Tot ce trebuie să știi despre mierea noastra Busy Bee.</p>
             </div>
 
             <div class="faq-container">
-                <div class="faq-item glass-card" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this)">
                     <div class="faq-question">
-                        <span>De ce cristalizează (se zahărisește) mierea?</span>
+                        <span>Mierea este 100% naturală?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Cristalizarea este garanția absolută că mierea este 100% naturală și neîncălzită! Mierea procesată industrial este tratată termic la temperaturi mari pentru a rămâne mereu lichidă, dar își pierde toate enzimele și proprietățile benefice.</p>
+                        Da, garantăm 100% puritatea mierii noastre. Nu adăugăm zahăr, siropuri sau conservanți. Este extrasă la rece și ambalată cu grijă.
                     </div>
                 </div>
 
-                <div class="faq-item glass-card" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this)">
                     <div class="faq-question">
-                        <span>Cum se consumă corect Păstura și Căpăceala?</span>
+                        <span>De ce zaharisește (cristalizează) mierea?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p><strong>Păstura:</strong> Se recomandă 1-2 lingurițe pe zi, mestecată încet dimineața pe stomacul gol.<br><br><strong>Căpăceala:</strong> Se mestecă la fel ca o gumă de mestecat naturală până când ceara își pierde gustul de miere.</p>
+                        Cristalizarea este un proces natural și dovada clară că mierea este crudă și neprocesată termic. Își păstrează toate proprietățile nutritive intacte!
                     </div>
                 </div>
 
-                <div class="faq-item glass-card" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this)">
                     <div class="faq-question">
-                        <span>Cum este ambalată mierea pentru curier?</span>
+                        <span>În cât timp ajunge comanda?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Folosim borcane din sticlă alimentară premium, protejate individual în cutii rezistente la șocuri. Garantăm că ajunge totul intact.</p>
+                        Livrăm rapid prin curier în 24-48 de ore lucrătoare oriunde în țară, în ambalaje speciale de protecție.
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Mega Footer -->
+        <footer class="mega-footer">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <span class="footer-brand-tag">BUSY BEE APICULTURĂ</span>
+                    <p>Produse apicole create cu pasiune și respect pentru natură. Fiecare picătură poartă aroma florilor din stupina noastră.</p>
+                    <div class="footer-contact-info">
+                        📍 România, Apicultură Locală<br>
+                        📞 07xx xxx xxx | ✉️ contact@busybee.ro
+                    </div>
+                </div>
+                <div class="footer-col newsletter-box">
+                    <h4>Abonează-te pentru oferte dulci</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Primești un cupon de 10% reducere la prima ta comandă.</p>
+                    <div class="input-inline">
+                        <input type="email" placeholder="Adresa ta de email...">
+                        <button type="button">Mă abonez</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-big-text">
+                <span>BUSY BEE • NATURAL HONEY</span>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Busy Bee. Toate drepturile rezervate.</span>
+                <span>Creat cu 🍯 pentru iubitorii de miere.</span>
+            </div>
+        </footer>
+
     </div>
 
-    <!-- VIZUALUL 2: CHECKOUT -->
-    <div id="checkout-view" style="display: none;" class="checkout-page-container">
-        <div class="checkout-content-wrap">
-            <button class="back-to-shop" onclick="showStoreView()">&larr; Înapoi la magazin</button>
+    <!-- VEDEREA DE CHECKOUT (PAGINA DE FINALIZARE COMANDĂ) -->
+    <div id="checkout-view" style="display: none;">
+        <div class="checkout-page-container">
+            <button class="back-to-shop" onclick="showStoreView()">← Înapoi la Magazin</button>
             <div class="checkout-grid">
                 <div class="checkout-form-box glass-card">
-                    <h2>Detalii de Livrare</h2>
-                    <p class="checkout-sub">Completează datele tale pentru a expedia comanda rapid.</p>
-                    <form id="order-form" onsubmit="submitOrder(event)">
+                    <h2>Finalizează Comanda</h2>
+                    <p class="checkout-sub">Completează datele de livrare mai jos.</p>
+                    
+                    <form onsubmit="submitOrder(event)">
                         <div class="f-group">
-                            <label>Nume și Prenume</label>
-                            <input type="text" id="o-name" required placeholder="Alexandru Popescu">
+                            <label for="o-name">Nume complet</label>
+                            <input type="text" id="o-name" required placeholder="Ex: Andrei Popescu">
                         </div>
                         <div class="f-group">
-                            <label>Număr de Telefon</label>
-                            <input type="tel" id="o-phone" required placeholder="0712 345 678">
+                            <label for="o-phone">Număr de telefon</label>
+                            <input type="tel" id="o-phone" required placeholder="Ex: 0721 000 000">
                         </div>
                         <div class="f-group">
-                            <label>Adresă completă (Oraș, Stradă, Număr, Bloc)</label>
-                            <input type="text" id="o-addr" required placeholder="Str. Florilor, Nr. 12, Ap. 4">
+                            <label for="o-address">Adresa completă de livrare</label>
+                            <input type="text" id="o-address" required placeholder="Oraș, Calea/Strada, Nr, Bloc, Ap">
                         </div>
-                        <div class="f-group">
-                            <label>Observații / Mențiuni (opțional)</label>
-                            <input type="text" id="o-notes" placeholder="Ex: Sunați înainte de livrare">
-                        </div>
-                        <button type="submit" class="submit-order-btn">Confirmă și Trimite Comanda 🚀</button>
+                        <button type="submit" class="submit-order-btn">Plasează Comanda (Ramburs la Curier)</button>
                     </form>
                 </div>
 
                 <div class="checkout-summary-box glass-card">
-                    <h3>Sumarul Comenzii</h3>
-                    <div id="checkout-items-list" class="checkout-items-list"></div>
+                    <h3>Sumar Comandă</h3>
+                    <div id="checkout-items-list" class="checkout-items-list">
+                        <!-- Se populează din JS -->
+                    </div>
                     <div class="checkout-totals">
                         <div class="sum-row">
-                            <span>Subtotal</span>
+                            <span>Subtotal:</span>
                             <span id="co-subtotal">0 LEI</span>
                         </div>
                         <div class="sum-row">
-                            <span>Livrare curier</span>
+                            <span>Livrare Curier:</span>
                             <span>20 LEI</span>
                         </div>
                         <div class="sum-row total">
-                            <span>Total de plată</span>
+                            <span>Total de plată:</span>
                             <span id="co-total">20 LEI</span>
                         </div>
                     </div>
@@ -286,51 +250,24 @@
         </div>
     </div>
 
-    <!-- COȘ LATERAL -->
-    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-    <div class="cart-drawer" id="cart-drawer">
+    <!-- SERTARUL DE COȘ (SLIDE-OUT CART) -->
+    <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+    <div id="cart-drawer" class="cart-drawer">
         <div class="cart-header">
-            <h3>Coșul tău Busy Bee</h3>
+            <h3 id="cart-target-icon" style="margin:0; font-size: 1.2rem;">Coșul Tău 🐝</h3>
             <button class="close-cart" onclick="toggleCart()">&times;</button>
         </div>
-        <div class="cart-body" id="cart-items">
-            <p class="empty-msg">Coșul este gol momentan.</p>
+        <div id="cart-items" class="cart-body">
+            <!-- Se populează din JS -->
         </div>
         <div class="cart-footer">
             <div class="cart-total-row">
-                <span>Total estimat:</span>
+                <span>Total:</span>
                 <span id="cart-total-val">0 LEI</span>
             </div>
-            <button class="checkout-btn" onclick="goToCheckoutPage()">Mergi la Finalizare &rarr;</button>
+            <button class="checkout-btn" onclick="goToCheckoutPage()">Spre Finalizare Comandă</button>
         </div>
     </div>
-
-    <!-- FOOTER -->
-    <footer class="mega-footer">
-        <div class="footer-top">
-            <div class="footer-col">
-                <span class="footer-brand-tag">STUPINA TRANSILVANIA &bull; CONTACT DIRECT</span>
-                <p>Ai întrebări despre sortimente sau vrei o comandă specială? Sună-mă direct sau scrie-mi pe WhatsApp.</p>
-                <p class="footer-contact-info">📞 <strong>Tel:</strong> 0712 345 678<br>✉️ <strong>Email:</strong> contact@busybee-miere.ro</p>
-            </div>
-            <div class="footer-col newsletter-box">
-                <h4>Fii primul care află când extragem seria nouă</h4>
-                <div class="input-inline">
-                    <input type="email" placeholder="Adresa ta de e-mail...">
-                    <button>Abonare</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-big-text">
-            <span>BUSY BEE &bull; 100% ARTIZANAL</span>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 Busy Bee. Toate drepturile rezervate.</p>
-            <p>Făcut cu pasiune pentru albine și oameni.</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>
