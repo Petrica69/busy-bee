@@ -44,7 +44,7 @@
     </header>
 
     <!-- VEDEREA PRINCIPALĂ A MAGAZINULUI -->
-    <div id="store-view">
+    <div id="store-view" class="view-section active-view">
 
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
@@ -346,7 +346,7 @@
     </div>
 
     <!-- VEDEREA DE DETALII PRODUS -->
-    <div id="product-detail-view" style="display: none;">
+    <div id="product-detail-view" class="view-section">
         <div class="detail-page-container">
             <button class="back-to-shop-btn" onclick="showStoreView()">← Înapoi la Magazin</button>
             <div class="detail-grid">
@@ -376,7 +376,7 @@
     </div>
 
     <!-- VEDEREA DE CHECKOUT -->
-    <div id="checkout-view" style="display: none;">
+    <div id="checkout-view" class="view-section">
         <div class="checkout-page-container">
             <button class="back-to-shop-btn" onclick="showStoreView()">← Înapoi la Magazin</button>
             <div class="checkout-grid">
@@ -394,7 +394,7 @@
                             <input type="tel" id="o-phone" required placeholder="Ex: 0721 000 000">
                         </div>
 
-                        <!-- METODĂ LIVRARE (Inclusiv EasyBox) -->
+                        <!-- METODĂ LIVRARE -->
                         <div class="f-group" style="margin-top: 1rem;">
                             <label style="margin-bottom: 0.6rem; display: block;">Metodă de Livrare</label>
                             <div class="payment-options-container">
