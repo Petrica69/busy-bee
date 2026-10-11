@@ -17,7 +17,7 @@ const productsData = {
         title: "Miere de Salcâm",
         price: 45,
         img: "https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=800&q=80",
-        desc: "Considerată regina miersurilor datorită limpezimii sale cristaline și a faptului că rămâne în stare lichidă o perioadă foarte îndelungată. Are un gust fin, delicat, fiind ideală pentru îndulcirea ceaiurilor fără să le schimbe aroma naturală.",
+        desc: "Considerată regina mierurilor datorită limpezimii sale cristaline și a faptului că rămâne în stare lichidă o perioadă foarte îndelungată. Are un gust fin, delicat, fiind ideală pentru îndulcirea ceaiurilor fără să le schimbe aroma naturală.",
         variants: [
             { size: "400g", price: 45 },
             { size: "800g", price: 80 },
@@ -61,7 +61,7 @@ const productsData = {
         title: "Păstură Naturală",
         price: 60,
         img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
-        desc: "Ccunoscută pe bună dreptate drept „pâinea albinelor”, păstura este polenul fermentat natural în faguri. Este un superaliment excepțional, extrem de bogat în aminoacizi esențiali și seleniu, ideal pentru detoxifierea ficatului și imunitate.",
+        desc: "Cunoscută pe bună dreptate drept „pâinea albinelor”, păstura este polenul fermentat natural în faguri. Este un superaliment excepțional, extrem de bogat în aminoacizi esențiali și seleniu, ideal pentru detoxifierea ficatului și imunitate.",
         variants: [
             { size: "200g", price: 60 },
             { size: "400g", price: 110 },
@@ -83,7 +83,8 @@ const productsData = {
 
 let currentActiveProductKey = null;
 
-function openProductDetail(productKey) {
+// Deschide detaliile produsului și salvează starea în istoric (pentru săgeata din Safari)
+function openProductDetail(productKey, pushHistory = true) {
     const p = productsData[productKey];
     if (!p) return;
     currentActiveProductKey = productKey;
@@ -93,13 +94,11 @@ function openProductDetail(productKey) {
     document.getElementById('detail-price').innerText = p.variants[0].price;
     document.getElementById('detail-desc').innerText = p.desc;
 
-    // Generăm butoanele de gramaj dinamic
     const picker = document.getElementById('detail-variant-picker');
     picker.innerHTML = `<div class="ios-slider"></div>` + p.variants.map((v, idx) => `
         <button class="v-btn ${idx === 0 ? 'active' : ''}" data-size="${v.size}" data-price="${v.price}" onclick="selectDetailVariant(this)">${v.size}</button>
     `).join('');
 
-    // Resetăm poziția sliderului
     const slider = picker.querySelector('.ios-slider');
     if(slider) slider.style.transform = 'translateX(0%)';
 
@@ -107,6 +106,60 @@ function openProductDetail(productKey) {
     document.getElementById('checkout-view').style.display = 'none';
     document.getElementById('product-detail-view').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (pushHistory) {
+        history.pushState({ view: 'detail', product: productKey }, "", `#${productKey}`);
+    }
+}
+
+// Afișează magazinul principal
+function showStoreView(pushHistory = true) {
+    document.getElementById('checkout-view').style.display = 'none';
+    document.getElementById('product-detail-view').style.display = 'none';
+    document.getElementById('store-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (pushHistory && window.location.hash) {
+        history.pushState({ view: 'store' }, "", window.location.pathname);
+    }
+}
+
+// Ascultă butonul de "Înapoi / Înainte" din browser (Safari / Chrome)
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.view === 'detail') {
+        openProductDetail(event.state.product, false);
+    } else {
+        showStoreView(false);
+    }
+});
+
+// Detectare SWIPE de la stânga la dreapta pentru întoarcere rapidă
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, false);
+
+document.addEventListener('touchend', e => {
+    let touchEndX = e.changedTouches[0].screenX;
+    let touchEndY = e.changedTouches[0].screenY;
+    handleSwipeGesture(touchStartX, touchEndX, touchStartY, touchEndY);
+}, false);
+
+function handleSwipeGesture(startX, endX, startY, endY) {
+    const diffX = endX - startX;
+    const diffY = Math.abs(endY - startY);
+
+    if (diffX > 90 && diffY < 60) {
+        const detailView = document.getElementById('product-detail-view');
+        const checkoutView = document.getElementById('checkout-view');
+
+        if (detailView.style.display === 'block' || checkoutView.style.display === 'block') {
+            showStoreView(true);
+        }
+    }
 }
 
 function selectDetailVariant(button) {
@@ -326,14 +379,7 @@ function goToCheckoutPage() {
     document.getElementById('product-detail-view').style.display = 'none';
     document.getElementById('checkout-view').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    updateCheckoutSummary();
-}
-
-function showStoreView() {
-    document.getElementById('checkout-view').style.display = 'none';
-    document.getElementById('product-detail-view').style.display = 'none';
-    document.getElementById('store-view').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.pushState({ view: 'checkout' }, "", "#checkout");
 }
 
 function updateCheckoutSummary() {
