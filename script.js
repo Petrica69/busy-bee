@@ -1,14 +1,12 @@
 let cart = [];
 
-// Generare optimizată pentru fundal (Ultra-fluid pe mobil)
+// Generare fundal optimizat
 function createNatureBackground() {
     const container = document.getElementById('nature-bg');
     if (!container) return;
     
     container.innerHTML = '';
     const symbols = ['🐝', '🍯', '✨', '🌿', '🌼'];
-    
-    // Pe mobil punem doar 6 elemente ca să nu streseze GPU-ul telefonului
     const isMobile = window.innerWidth <= 768;
     const count = isMobile ? 6 : 18;
 
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createNatureBackground();
 });
 
-// Acordeon FAQ
+// Faq Toggle
 function toggleFaq(element) {
     const isActive = element.classList.contains('active');
     document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
@@ -43,7 +41,7 @@ function toggleFaq(element) {
     }
 }
 
-// Selector variante stil iOS
+// Selector Variante (Efect Miere Lichidă)
 function selectVariant(button) {
     const picker = button.closest('.variant-picker');
     picker.querySelectorAll('.v-btn').forEach(btn => btn.classList.remove('active'));
@@ -71,7 +69,7 @@ function selectVariant(button) {
     }, 120);
 }
 
-// Albinuță zburătoare spre coș
+// Albinuță spre coș
 function triggerFlyingBee(event) {
     const cartTarget = document.getElementById('cart-target-icon');
     if (!cartTarget) return;
@@ -87,9 +85,6 @@ function triggerFlyingBee(event) {
     const targetX = rectTarget.left + rectTarget.width / 2;
     const targetY = rectTarget.top + rectTarget.height / 2;
 
-    const deltaX = targetX - startX;
-    const deltaY = targetY - startY;
-
     bee.style.position = 'fixed';
     bee.style.fontSize = '1.8rem';
     bee.style.zIndex = '9999';
@@ -99,13 +94,11 @@ function triggerFlyingBee(event) {
     bee.style.transition = 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
 
     setTimeout(() => {
-        bee.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.2) rotate(45deg)`;
+        bee.style.transform = `translate(${targetX - startX}px, ${targetY - startY}px) scale(0.2) rotate(45deg)`;
         bee.style.opacity = '0';
     }, 20);
 
-    setTimeout(() => {
-        bee.remove();
-    }, 650);
+    setTimeout(() => { bee.remove(); }, 650);
 }
 
 function addToCartFromCard(event, button, productName) {
@@ -127,9 +120,7 @@ function addToCartFromCard(event, button, productName) {
 
     updateCartUI();
     
-    setTimeout(() => {
-        toggleCart(true);
-    }, 650);
+    setTimeout(() => { toggleCart(true); }, 650);
 
     button.innerText = "Adăugat! ✓";
     button.style.background = "#10b981";
@@ -159,13 +150,13 @@ function updateCartUI() {
     let totalPrice = 0;
 
     if (cart.length === 0) {
-        container.innerHTML = '<p class="empty-msg" style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Coșul tău este gol momentan.</p>';
+        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Coșul tău este gol momentan.</p>';
     } else {
         container.innerHTML = cart.map((item, index) => {
             totalItems += item.qty;
             totalPrice += item.price * item.qty;
             return `
-                <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border-color);">
                     <div>
                         <strong style="font-size: 0.95rem; color: #fff;">${item.name}</strong><br>
                         <span style="color: var(--text-muted); font-size: 0.8rem;">${item.size} | ${item.price} LEI</span>
