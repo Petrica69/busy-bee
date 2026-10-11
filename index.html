@@ -61,47 +61,47 @@
             </div>
         </section>
 
-        <!-- Marquee Text Rulant Infinit 100% Continuu -->
+        <!-- Marquee Text Rulant Infinit 100% Continuu (Fără glumă, text corectat) -->
         <div class="marquee-container">
             <div class="marquee-track">
                 <div class="marquee-group">
-                    <span>🐝 Să zici că nu simți diferența dintre mierea naturală și zahărul topit e cel mai mare skill issue. 😭</span>
-                    <span>•</span>
-                    <span>🍯 100% NATURALĂ &amp; NESTURATĂ</span>
+                    <span>🍯 100% NATURALĂ &amp; NEPASTEURIZATĂ</span>
                     <span>•</span>
                     <span>✨ CALITATE PREMIUM APICOLĂ</span>
                     <span>•</span>
                     <span>🌼 FĂRĂ ADAOS DE ZAHĂR</span>
+                    <span>•</span>
+                    <span>🐝 DIRECT DIN STUPINA NOASTRĂ</span>
                     <span>•</span>
                 </div>
                 <div class="marquee-group">
-                    <span>🐝 Să zici că nu simți diferența dintre mierea naturală și zahărul topit e cel mai mare skill issue. 😭</span>
-                    <span>•</span>
-                    <span>🍯 100% NATURALĂ &amp; NESTURATĂ</span>
+                    <span>🍯 100% NATURALĂ &amp; NEPASTEURIZATĂ</span>
                     <span>•</span>
                     <span>✨ CALITATE PREMIUM APICOLĂ</span>
                     <span>•</span>
                     <span>🌼 FĂRĂ ADAOS DE ZAHĂR</span>
+                    <span>•</span>
+                    <span>🐝 DIRECT DIN STUPINA NOASTRĂ</span>
                     <span>•</span>
                 </div>
                 <div class="marquee-group">
-                    <span>🐝 Să zici că nu simți diferența dintre mierea naturală și zahărul topit e cel mai mare skill issue. 😭</span>
-                    <span>•</span>
-                    <span>🍯 100% NATURALĂ &amp; NESTURATĂ</span>
+                    <span>🍯 100% NATURALĂ &amp; NEPASTEURIZATĂ</span>
                     <span>•</span>
                     <span>✨ CALITATE PREMIUM APICOLĂ</span>
                     <span>•</span>
                     <span>🌼 FĂRĂ ADAOS DE ZAHĂR</span>
+                    <span>•</span>
+                    <span>🐝 DIRECT DIN STUPINA NOASTRĂ</span>
                     <span>•</span>
                 </div>
                 <div class="marquee-group">
-                    <span>🐝 Să zici că nu simți diferența dintre mierea naturală și zahărul topit e cel mai mare skill issue. 😭</span>
-                    <span>•</span>
-                    <span>🍯 100% NATURALĂ &amp; NESTURATĂ</span>
+                    <span>🍯 100% NATURALĂ &amp; NEPASTEURIZATĂ</span>
                     <span>•</span>
                     <span>✨ CALITATE PREMIUM APICOLĂ</span>
                     <span>•</span>
                     <span>🌼 FĂRĂ ADAOS DE ZAHĂR</span>
+                    <span>•</span>
+                    <span>🐝 DIRECT DIN STUPINA NOASTRĂ</span>
                     <span>•</span>
                 </div>
             </div>
@@ -359,7 +359,7 @@
                     <div class="detail-price-preview"><span id="detail-price">35</span> LEI</div>
                     <p id="detail-desc" class="detail-long-desc">Descriere detaliată...</p>
                     <div class="detail-highlights">
-                        <div class="highlight-item">🍯 100% Raw &amp; Necosit</div>
+                        <div class="highlight-item">🍯 100% Raw &amp; Nepasteurizată</div>
                         <div class="highlight-item">✨ Fără aditivi sau zahăr adăugat</div>
                         <div class="highlight-item">🚚 Recoltat și ambalat în România</div>
                     </div>
@@ -382,7 +382,7 @@
             <div class="checkout-grid">
                 <div class="checkout-form-box glass-card">
                     <h2>Finalizează Comanda</h2>
-                    <p class="checkout-sub">Completează datele de livrare și alege metoda de plată.</p>
+                    <p class="checkout-sub">Completează datele de livrare și alege metoda de livrare și plată.</p>
                     
                     <form onsubmit="submitOrder(event)">
                         <div class="f-group">
@@ -393,8 +393,24 @@
                             <label for="o-phone">Număr de telefon</label>
                             <input type="tel" id="o-phone" required placeholder="Ex: 0721 000 000">
                         </div>
-                        <div class="f-group">
-                            <label for="o-address">Adresa completă de livrare</label>
+
+                        <!-- METODĂ LIVRARE (Inclusiv EasyBox) -->
+                        <div class="f-group" style="margin-top: 1rem;">
+                            <label style="margin-bottom: 0.6rem; display: block;">Metodă de Livrare</label>
+                            <div class="payment-options-container">
+                                <label class="payment-option-label">
+                                    <input type="radio" name="shipping" value="curier" checked onchange="toggleShippingType()" style="accent-color: var(--accent-gold); transform: scale(1.2);">
+                                    <span style="font-size: 0.95rem; font-weight: 600;">🚚 Livrare prin Curier la Adresă (20 LEI)</span>
+                                </label>
+                                <label class="payment-option-label">
+                                    <input type="radio" name="shipping" value="easybox" onchange="toggleShippingType()" style="accent-color: var(--accent-gold); transform: scale(1.2);">
+                                    <span style="font-size: 0.95rem; font-weight: 600;">📦 Sameday EasyBox (15 LEI)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="f-group" id="address-field-group">
+                            <label for="o-address" id="address-label">Adresa completă de livrare</label>
                             <input type="text" id="o-address" required placeholder="Oraș, Calea/Strada, Nr, Bloc, Ap">
                         </div>
 
@@ -408,7 +424,7 @@
                                 </label>
                                 <label class="payment-option-label">
                                     <input type="radio" name="payment" value="ramburs" onchange="toggleCardInputs()" style="accent-color: var(--accent-gold); transform: scale(1.2);">
-                                    <span style="font-size: 0.95rem; font-weight: 600;">💵 Ramburs la Curier</span>
+                                    <span style="font-size: 0.95rem; font-weight: 600;">💵 Ramburs la Curier / EasyBox</span>
                                 </label>
                             </div>
                         </div>
@@ -444,8 +460,8 @@
                             <span id="co-subtotal">0 LEI</span>
                         </div>
                         <div class="sum-row">
-                            <span>Livrare Curier:</span>
-                            <span>20 LEI</span>
+                            <span>Livrare:</span>
+                            <span id="co-shipping-val">20 LEI</span>
                         </div>
                         <div class="sum-row total">
                             <span>Total de plată:</span>
