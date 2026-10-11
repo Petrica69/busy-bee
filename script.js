@@ -112,28 +112,41 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     toggleCardInputs();
     setupCardValidation();
-    setupSwipeToCloseCart();
+    setupSwipeGestures();
 });
 
-function setupSwipeToCloseCart() {
+// Gesturi Swipe de la stânga la dreapta pe mobil
+function setupSwipeGestures() {
     let touchStartX = 0;
-    let touchEndX = 0;
-    const cartDrawer = document.getElementById('cart-drawer');
+    let touchStartY = 0;
 
-    if (cartDrawer) {
-        cartDrawer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+    window.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
 
-        cartDrawer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (touchEndX - touchStartX > 50) {
-                if (cartDrawer.classList.contains('open')) {
-                    toggleCart();
-                }
+    window.addEventListener('touchend', (e) => {
+        let touchEndX = e.changedTouches[0].screenX;
+        let touchEndY = e.changedTouches[0].screenY;
+        
+        let diffX = touchEndX - touchStartX;
+        let diffY = Math.abs(touchEndY - touchStartY);
+
+        // Swipe la dreapta semnificativ (> 70px) și predominant pe orizontală
+        if (diffX > 70 && diffY < 100) {
+            const cartDrawer = document.getElementById('cart-drawer');
+            const detailView = document.getElementById('product-detail-view');
+            const checkoutView = document.getElementById('checkout-view');
+
+            if (cartDrawer && cartDrawer.classList.contains('open')) {
+                toggleCart();
+            } else if (detailView && detailView.style.display === 'block') {
+                showStoreView();
+            } else if (checkoutView && checkoutView.style.display === 'block') {
+                showStoreView();
             }
-        }, { passive: true });
-    }
+        }
+    }, { passive: true });
 }
 
 function setupCardValidation() {
